@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../../contexts.rst:6
 msgid "Introduction into Contexts"
-msgstr ""
+msgstr "컨텍스트에 대한 소개"
 
 #: ../../contexts.rst:8
 msgid ""
@@ -30,10 +30,14 @@ msgid ""
 " one application or create the application dynamically in a function you "
 "want to read on."
 msgstr ""
+"만약 애플리케이션을 하나만 쓸 계획이면 이 장은 건너뛰어도 된다. "
+"보통 하듯이 애플리케이션을 :class:`SQLAlchemy` 생성자에 인수로 넣는 것으로 충분하다. "
+"하지만 두 개 이상의 애플리케이션을 사용하거나 함수 안에서 동적으로 애플리케이션을 "
+"생성하고자 할 때는 이 장을 읽어야 한다. "
 
 #: ../../contexts.rst:14
-msgid ""
-"If you define your application in a function, but the :class:`SQLAlchemy`"
+msgid ""                
+"if you define your application in a function, but the :class:`SQLAlchemy`"
 " object globally, how does the latter learn about the former?  The answer"
 " is the :meth:`~SQLAlchemy.init_app` function::"
 msgstr ""
