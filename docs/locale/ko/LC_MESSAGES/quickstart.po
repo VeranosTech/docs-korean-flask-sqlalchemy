@@ -5,7 +5,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
 #, fuzzy
-lmsgid ""
+msgid ""
 msgstr ""
 "Project-Id-Version: Flask-SQLAlchemy 2.3\n"
 "Report-Msgid-Bugs-To: \n"
