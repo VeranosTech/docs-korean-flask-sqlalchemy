@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../../quickstart.rst:4
 msgid "Quickstart"
-msgstr ""
+msgstr "초간단 안내"
 
 #: ../../quickstart.rst:8
 msgid ""
@@ -28,10 +28,13 @@ msgid ""
 "and readily extends for larger applications.  For the complete guide, "
 "checkout the API documentation on the :class:`SQLAlchemy` class."
 msgstr ""
+"플라스크-SQL알케미는 기본적인 애플리케이션에서는 믿기지 않을 정도로 사용하기 쉽고 "
+"대규모 애플리케이션에도 확장이 가능하다. 전체 안내서는 :class:`SQLAlchemy` 클래스 "
+"API 문서를 확인하라."
 
 #: ../../quickstart.rst:13
 msgid "A Minimal Application"
-msgstr ""
+msgstr "초미니 애플리케이션"
 
 #: ../../quickstart.rst:15
 msgid ""
@@ -39,6 +42,9 @@ msgid ""
 " to create your Flask application, load the configuration of choice and "
 "then create the :class:`SQLAlchemy` object by passing it the application."
 msgstr ""
+"플라스크 애플리케이션이 하나인 경우에는 플라스크 애플리케이션을 생성하고 "
+"선택한 설정을 로드한 다음에 애플리케이션을 인수로 넘겨서 :class:`SQLAlchemy` "
+"객체를 생성하면 된다."
 
 #: ../../quickstart.rst:19
 msgid ""
