@@ -121,7 +121,13 @@ msgid ""
 "relationship - so a post can be created with a category or it can be "
 "added to the list of posts of the category."
 msgstr ""
-
+"여기에서 보듯이 ``Post`` 객체는 세션에 추가할 필요가 없다. "
+"``Category``\ 가 추가해야 하는 모든 객체를 relationship을 통해 연결한 "
+"세션의 일부이기 때문이다. "
+":meth:`db.session.add() <sqlalchemy.orm.session.Session.add>` 메서드가 "
+이 객체를 생성하기 전에 호출되었든 나중에 호출되었든 상관없다. "
+"릴레이션이 양쪽으로 관계를 맺고 있기 때문에 포스트를 카테고리와 연결하여 "
+"생성할 수도 있고 카테고리에 속하는 포스트의 리스트를 더할 수도 있다. "
 
 #: ../../quickstart.rst:130
 msgid ""
@@ -129,6 +135,8 @@ msgid ""
 "since the relationship is lazy-loaded, but you will probably not notice "
 "the difference - loading a list is quite fast::"
 msgstr ""
+"포스트를 살펴보자. 릴레이션이 lazy유형이므로 포스트에 접근하면 그제서야 "
+"데이터베이스에서 로드하지만 로딩이 빠르기 때문에 차이를 느낄 수 없다.::"  
 
 #: ../../quickstart.rst:137
 msgid ""
@@ -138,6 +146,7 @@ msgid ""
 "loading strategy on the query level. If you wanted a single query to load"
 " all categories and their posts, you could do it like this::"
 msgstr ""
+
 
 #: ../../quickstart.rst:150
 msgid ""
