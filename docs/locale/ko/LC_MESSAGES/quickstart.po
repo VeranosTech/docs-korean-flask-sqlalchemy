@@ -94,7 +94,7 @@ msgstr ""
 
 #: ../../quickstart.rst:81
 msgid "Simple Relationships"
-msgstr "간단한 관계"
+msgstr "간단한 릴레이션"
 
 #: ../../quickstart.rst:83
 msgid ""
@@ -149,13 +149,16 @@ msgstr ""
 "릴레이션을 lazy-loadin하는 것은 속도는 빠르지만 여러개의 객체에 대해 "
 "추가적인 쿼리를 반복하게 되면 병목현상이 일어난다. "
 
-
 #: ../../quickstart.rst:150
 msgid ""
 "If you want to get a query object for that relationship, you can do so "
 "using :meth:`~sqlalchemy.orm.query.Query.with_parent`.  Let's exclude "
 "that post about Snakes for example::"
 msgstr ""
+"만약 릴레이션에 대해 쿼리 객체를 얻고 싶으면 "
+":meth:`~sqlalchemy.orm.query.Query.with_parent`\ 를 쓰면 된다. "
+"예를 들어 Snake에 대한 포스트만 제외하려면::"
+
 
 #: ../../quickstart.rst:159
 msgid "Road to Enlightenment"
