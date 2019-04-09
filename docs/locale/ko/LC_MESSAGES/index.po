@@ -30,6 +30,10 @@ msgid ""
 "defaults and extra helpers that make it easier to accomplish common "
 "tasks."
 msgstr ""
+"플라스크-SQL알케미는 애플리케이션에서 `SQLAlchemy`_\ 를 지원하기 위한 "
+"`Flask`_ 확장 프로그램이다. SQL알케미 0.8 이상이 필요하다. "
+"많이 쓰이는 작업을 쉽게 할 수 있도록 도와주는 디폴트 및 추가 헬퍼를 제공하여 "
+"플라스크에서 SQL알케미 사용을 쉽게 만들어준다. "
 
 #: ../../index.rst:19
 msgid ""
@@ -37,20 +41,24 @@ msgid ""
 "depth.  The following documentation is a brief overview of the most "
 "common tasks, as well as the features specific to Flask-SQLAlchemy."
 msgstr ""
+"ORM에 대해 자세히 알고 싶다면 `the SQLAlchemy documentation`_\ 를 참조한다. "
+"다음 문서는 많이 쓰이는 작업에 대한 개괄적인 소개와 플라스크-SQL알케미만의 "
+"특징에 대해 설명한다. "
 
 #: ../../contents.rst.inc:2
 msgid "User's Guide"
-msgstr ""
+msgstr "사용자 안내서"
 
 #: ../../contents.rst.inc:4
 msgid ""
 "This part of the documentation will show you how to get started in using "
 "Flask-SQLAlchemy with Flask."
 msgstr ""
+"이 문서는 플라스크-SQL알케미는 플라스크에서 사용하는 방법을 설명한다. "
 
 #: ../../contents.rst.inc:20
 msgid "API Reference"
-msgstr ""
+msgstr "API 참조문헌"
 
 #: ../../contents.rst.inc:22
 msgid ""
@@ -60,9 +68,9 @@ msgstr ""
 
 #: ../../contents.rst.inc:31
 msgid "Additional Notes"
-msgstr ""
+msgstr "추가 사항"
 
 #: ../../contents.rst.inc:33
 msgid "See Flask's license_ for legal information governing this project."
-msgstr ""
+msgstr "이 프로젝트의 법률적 내용은 플라스크의 license_\ 를 참조."
 
