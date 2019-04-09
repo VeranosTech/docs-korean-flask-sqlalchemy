@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../customizing.rst:6
+msgid "Customizing"
+msgstr ""
+
+#: ../../customizing.rst:8
+msgid ""
+"Flask-SQLAlchemy defines sensible defaults. However, sometimes "
+"customization is needed. There are various ways to customize how the "
+"models are defined and interacted with."
+msgstr ""
+
+#: ../../customizing.rst:12
+msgid ""
+"These customizations are applied at the creation of the "
+":class:`SQLAlchemy` object and extend to all models derived from its "
+"``Model`` class."
+msgstr ""
+
+#: ../../customizing.rst:17
+msgid "Model Class"
+msgstr ""
+
+#: ../../customizing.rst:19
+msgid ""
+"SQLAlchemy models all inherit from a declarative base class. This is "
+"exposed as ``db.Model`` in Flask-SQLAlchemy, which all models extend. "
+"This can be customized by subclassing the default and passing the custom "
+"class to ``model_class``."
+msgstr ""
+
+#: ../../customizing.rst:24
+msgid ""
+"The following example gives every model an integer primary key, or a "
+"foreign key for joined-table inheritance."
+msgstr ""
+
+#: ../../customizing.rst:29
+msgid ""
+"Integer primary keys for everything is not necessarily the best database "
+"design (that's up to your project's requirements), this is only an "
+"example."
+msgstr ""
+
+#: ../../customizing.rst:60
+msgid "Model Mixins"
+msgstr ""
+
+#: ../../customizing.rst:62
+msgid ""
+"If behavior is only needed on some models rather than all models, use "
+"mixin classes to customize only those models. For example, if some models"
+" should track when they are created or updated::"
+msgstr ""
+
+#: ../../customizing.rst:81
+msgid "Query Class"
+msgstr ""
+
+#: ../../customizing.rst:83
+msgid ""
+"It is also possible to customize what is available for use on the special"
+" ``query`` property of models. For example, providing a ``get_or`` "
+"method::"
+msgstr ""
+
+#: ../../customizing.rst:98
+msgid ""
+"And now all queries executed from the special ``query`` property on "
+"Flask-SQLAlchemy models can use the ``get_or`` method as part of their "
+"queries. All relationships defined with ``db.relationship`` (but not "
+":func:`sqlalchemy.orm.relationship`) will also be provided with this "
+"functionality."
+msgstr ""
+
+#: ../../customizing.rst:104
+msgid ""
+"It also possible to define a custom query class for individual "
+"relationships as well, by providing the ``query_class`` keyword in the "
+"definition. This works with both ``db.relationship`` and "
+"``sqlalchemy.relationship``::"
+msgstr ""
+
+#: ../../customizing.rst:114
+msgid ""
+"If a query class is defined on a relationship, it will take precedence "
+"over the query class attached to its corresponding model."
+msgstr ""
+
+#: ../../customizing.rst:117
+msgid ""
+"It is also possible to define a specific query class for individual "
+"models by overriding the ``query_class`` class attribute on the model::"
+msgstr ""
+
+#: ../../customizing.rst:123
+msgid ""
+"In this case, the ``get_or`` method will be only availble on queries "
+"orginating from ``MyModel.query``."
+msgstr ""
+
+#: ../../customizing.rst:128
+msgid "Model Metaclass"
+msgstr ""
+
+#: ../../customizing.rst:132
+msgid ""
+"Metaclasses are an advanced topic, and you probably don't need to "
+"customize them to achieve what you want. It is mainly documented here to "
+"show how to disable table name generation."
+msgstr ""
+
+#: ../../customizing.rst:136
+msgid ""
+"The model metaclass is responsible for setting up the SQLAlchemy "
+"internals when defining model subclasses. Flask-SQLAlchemy adds some "
+"extra behaviors through mixins; its default metaclass, "
+":class:`~model.DefaultMeta`, inherits them all."
+msgstr ""
+
+#: ../../customizing.rst:140
+msgid ""
+":class:`~model.BindMetaMixin`: ``__bind_key__`` is extracted from the "
+"class and applied to the table. See :ref:`binds`."
+msgstr ""
+
+#: ../../customizing.rst:142
+msgid ""
+":class:`~model.NameMetaMixin`: If the model does not specify a "
+"``__tablename__`` but does specify a primary key, a name is automatically"
+" generated."
+msgstr ""
+
+#: ../../customizing.rst:146
+msgid ""
+"You can add your own behaviors by defining your own metaclass and "
+"creating the declarative base yourself. Be sure to still inherit from the"
+" mixins you want (or just inherit from the default metaclass)."
+msgstr ""
+
+#: ../../customizing.rst:150
+msgid ""
+"Passing a declarative base class instead of a simple model base class, as"
+" shown above, to ``base_class`` will cause Flask-SQLAlchemy to use this "
+"base instead of constructing one with the default metaclass. ::"
+msgstr ""
+
+#: ../../customizing.rst:169
+msgid ""
+"You can also pass whatever other arguments you want to "
+":func:`~sqlalchemy.ext.declarative.declarative_base` to customize the "
+"base class as needed."
+msgstr ""
+
+#: ../../customizing.rst:174
+msgid "Disabling Table Name Generation"
+msgstr ""
+
+#: ../../customizing.rst:176
+msgid ""
+"Some projects prefer to set each model's ``__tablename__`` manually "
+"rather than relying on Flask-SQLAlchemy's detection and generation. The "
+"table name generation can be disabled by defining a custom metaclass. ::"
+msgstr ""
+
+#: ../../customizing.rst:189
+msgid ""
+"This creates a base that still supports the ``__bind_key__`` feature but "
+"does not generate table names."
+msgstr ""
+

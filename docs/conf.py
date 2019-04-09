@@ -246,3 +246,7 @@ except ImportError as e:
     pygments_style = 'tango'
     html_theme = 'default'
     html_theme_options = {}
+
+locale_dirs = ['locale/']
+gettext_compact = False
+    

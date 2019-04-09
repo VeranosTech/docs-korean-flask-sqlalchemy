@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../models.rst:6
+msgid "Declaring Models"
+msgstr ""
+
+#: ../../models.rst:8
+msgid ""
+"Generally Flask-SQLAlchemy behaves like a properly configured declarative"
+" base from the :mod:`~sqlalchemy.ext.declarative` extension.  As such we "
+"recommend reading the SQLAlchemy docs for a full reference.  However the "
+"most common use cases are also documented here."
+msgstr ""
+
+#: ../../models.rst:13
+msgid "Things to keep in mind:"
+msgstr ""
+
+#: ../../models.rst:15
+msgid ""
+"The baseclass for all your models is called ``db.Model``.  It's stored on"
+" the SQLAlchemy instance you have to create.  See :ref:`quickstart` for "
+"more details."
+msgstr ""
+
+#: ../../models.rst:18
+msgid ""
+"Some parts that are required in SQLAlchemy are optional in Flask-"
+"SQLAlchemy.  For instance the table name is automatically set for you "
+"unless overridden.  It's derived from the class name converted to "
+"lowercase and with “CamelCase” converted to “camel_case”.  To override "
+"the table name, set the ``__tablename__`` class attribute."
+msgstr ""
+
+#: ../../models.rst:25
+msgid "Simple Example"
+msgstr ""
+
+#: ../../models.rst:27
+msgid "A very simple example::"
+msgstr ""
+
+#: ../../models.rst:37
+msgid ""
+"Use :class:`~sqlalchemy.schema.Column` to define a column.  The name of "
+"the column is the name you assign it to.  If you want to use a different "
+"name in the table you can provide an optional first argument which is a "
+"string with the desired column name.  Primary keys are marked with "
+"``primary_key=True``.  Multiple keys can be marked as primary keys in "
+"which case they become a compound primary key."
+msgstr ""
+
+#: ../../models.rst:44
+msgid ""
+"The types of the column are the first argument to "
+":class:`~sqlalchemy.schema.Column`.  You can either provide them directly"
+" or call them to further specify them (like providing a length).  The "
+"following types are the most common:"
+msgstr ""
+
+#: ../../models.rst:50
+msgid ":class:`~sqlalchemy.types.Integer`"
+msgstr ""
+
+#: ../../models.rst:50
+msgid "an integer"
+msgstr ""
+
+#: ../../models.rst:51
+msgid ":class:`String(size) <sqlalchemy.types.String>`"
+msgstr ""
+
+#: ../../models.rst:51
+msgid ""
+"a string with a maximum length (optional in some databases, e.g. "
+"PostgreSQL)"
+msgstr ""
+
+#: ../../models.rst:54
+msgid ":class:`~sqlalchemy.types.Text`"
+msgstr ""
+
+#: ../../models.rst:54
+msgid "some longer unicode text"
+msgstr ""
+
+#: ../../models.rst:55
+msgid ":class:`~sqlalchemy.types.DateTime`"
+msgstr ""
+
+#: ../../models.rst:55
+msgid "date and time expressed as Python :class:`~datetime.datetime` object."
+msgstr ""
+
+#: ../../models.rst:57
+msgid ":class:`~sqlalchemy.types.Float`"
+msgstr ""
+
+#: ../../models.rst:57
+msgid "stores floating point values"
+msgstr ""
+
+#: ../../models.rst:58
+msgid ":class:`~sqlalchemy.types.Boolean`"
+msgstr ""
+
+#: ../../models.rst:58
+msgid "stores a boolean value"
+msgstr ""
+
+#: ../../models.rst:59
+msgid ":class:`~sqlalchemy.types.PickleType`"
+msgstr ""
+
+#: ../../models.rst:59
+msgid "stores a pickled Python object"
+msgstr ""
+
+#: ../../models.rst:60
+msgid ":class:`~sqlalchemy.types.LargeBinary`"
+msgstr ""
+
+#: ../../models.rst:60
+msgid "stores large arbitrary binary data"
+msgstr ""
+
+#: ../../models.rst:64
+msgid "One-to-Many Relationships"
+msgstr ""
+
+#: ../../models.rst:66
+msgid ""
+"The most common relationships are one-to-many relationships.  Because "
+"relationships are declared before they are established you can use "
+"strings to refer to classes that are not created yet (for instance if "
+"``Person`` defines a relationship to ``Address`` which is declared later "
+"in the file)."
+msgstr ""
+
+#: ../../models.rst:71
+msgid ""
+"Relationships are expressed with the :func:`~sqlalchemy.orm.relationship`"
+" function.  However the foreign key has to be separately declared with "
+"the :class:`~sqlalchemy.schema.ForeignKey` class::"
+msgstr ""
+
+#: ../../models.rst:86
+msgid ""
+"What does :func:`db.relationship() <sqlalchemy.orm.relationship>` do? "
+"That function returns a new property that can do multiple things. In this"
+" case we told it to point to the ``Address`` class and load multiple of "
+"those.  How does it know that this will return more than one address?  "
+"Because SQLAlchemy guesses a useful default from your declaration.  If "
+"you would want to have a one-to-one relationship you can pass "
+"``uselist=False`` to :func:`~sqlalchemy.orm.relationship`."
+msgstr ""
+
+#: ../../models.rst:94
+msgid ""
+"Since a person with no name or an email address with no address "
+"associated makes no sense, ``nullable=False`` tells SQLAlchemy to create "
+"the column as ``NOT NULL``. This is implied for primary key columns, but "
+"it's a good idea to specify it for all other columns to make it clear to "
+"other people working on your code that you did actually want a nullable "
+"column and did not just forget to add it."
+msgstr ""
+
+#: ../../models.rst:101
+msgid ""
+"So what do ``backref`` and ``lazy`` mean?  ``backref`` is a simple way to"
+" also declare a new property on the ``Address`` class.  You can then also"
+" use ``my_address.person`` to get to the person at that address.  "
+"``lazy`` defines when SQLAlchemy will load the data from the database:"
+msgstr ""
+
+#: ../../models.rst:106
+msgid ""
+"``'select'`` / ``True`` (which is the default, but explicit is better "
+"than implicit) means that SQLAlchemy will load the data as necessary in "
+"one go using a standard ``SELECT`` statement."
+msgstr ""
+
+#: ../../models.rst:109
+msgid ""
+"``'joined'`` / ``False`` tells SQLAlchemy to load the relationship in the"
+" same query as the parent using a ``JOIN`` statement."
+msgstr ""
+
+#: ../../models.rst:111
+msgid ""
+"``'subquery'`` works like ``'joined'`` but instead SQLAlchemy will use a "
+"subquery."
+msgstr ""
+
+#: ../../models.rst:113
+msgid ""
+"``'dynamic'`` is special and can be useful if you have many items and "
+"always want to apply additional SQL filters to them. Instead of loading "
+"the items SQLAlchemy will return another query object which you can "
+"further refine before loading the items. Note that this cannot be turned "
+"into a different loading strategy when querying so it's often a good idea"
+" to avoid using this in favor of ``lazy=True``.  A query object "
+"equivalent to a dynamic ``user.addresses`` relationship can be created "
+"using :meth:`Address.query.with_parent(user) "
+"<sqlalchemy.orm.query.Query.with_parent>` while still being able to use "
+"lazy or eager loading on the relationship itself as necessary."
+msgstr ""
+
+#: ../../models.rst:125
+msgid ""
+"How do you define the lazy status for backrefs?  By using the "
+":func:`~sqlalchemy.orm.backref` function::"
+msgstr ""
+
+#: ../../models.rst:135
+msgid "Many-to-Many Relationships"
+msgstr ""
+
+#: ../../models.rst:137
+msgid ""
+"If you want to use many-to-many relationships you will need to define a "
+"helper table that is used for the relationship.  For this helper table it"
+" is strongly recommended to *not* use a model but an actual table::"
+msgstr ""
+
+#: ../../models.rst:154
+msgid ""
+"Here we configured ``Page.tags`` to be loaded immediately after loading a"
+" Page, but using a separate query.  This always results in two queries "
+"when retrieving a Page, but when querying for multiple pages you will not"
+" get additional queries."
+msgstr ""
+
+#: ../../models.rst:159
+msgid ""
+"The list of pages for a tag on the other hand is something that's rarely "
+"needed. For example, you won't need that list when retrieving the tags "
+"for a specific page.  Therefore, the backref is set to be lazy-loaded so "
+"that accessing it for the first time will trigger a query to get the list"
+" of pages for that tag.  If you need to apply further query options on "
+"that list, you could either switch to the ``'dynamic'`` strategy - with "
+"the drawbacks mentioned above - or get a query object using "
+":meth:`Page.query.with_parent(some_tag) "
+"<sqlalchemy.orm.query.Query.with_parent>` and then use it exactly as you "
+"would with the query object from a dynamic relationship."
+msgstr ""
+

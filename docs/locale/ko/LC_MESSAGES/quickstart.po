@@ -1,0 +1,183 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../quickstart.rst:4
+msgid "Quickstart"
+msgstr ""
+
+#: ../../quickstart.rst:8
+msgid ""
+"Flask-SQLAlchemy is fun to use, incredibly easy for basic applications, "
+"and readily extends for larger applications.  For the complete guide, "
+"checkout the API documentation on the :class:`SQLAlchemy` class."
+msgstr ""
+
+#: ../../quickstart.rst:13
+msgid "A Minimal Application"
+msgstr ""
+
+#: ../../quickstart.rst:15
+msgid ""
+"For the common case of having one Flask application all you have to do is"
+" to create your Flask application, load the configuration of choice and "
+"then create the :class:`SQLAlchemy` object by passing it the application."
+msgstr ""
+
+#: ../../quickstart.rst:19
+msgid ""
+"Once created, that object then contains all the functions and helpers "
+"from both :mod:`sqlalchemy` and :mod:`sqlalchemy.orm`.  Furthermore it "
+"provides a class called ``Model`` that is a declarative base which can be"
+" used to declare models::"
+msgstr ""
+
+#: ../../quickstart.rst:40
+msgid ""
+"To create the initial database, just import the ``db`` object from an "
+"interactive Python shell and run the :meth:`SQLAlchemy.create_all` method"
+" to create the tables and database::"
+msgstr ""
+
+#: ../../quickstart.rst:48
+msgid "Boom, and there is your database.  Now to create some users::"
+msgstr ""
+
+#: ../../quickstart.rst:54
+msgid "But they are not yet in the database, so let's make sure they are::"
+msgstr ""
+
+#: ../../quickstart.rst:60
+msgid "Accessing the data in database is easy as a pie::"
+msgstr ""
+
+#: ../../quickstart.rst:67
+msgid ""
+"Note how we never defined a ``__init__`` method on the ``User`` class? "
+"That's because SQLAlchemy adds an implicit constructor to all model "
+"classes which accepts keyword arguments for all its columns and "
+"relationships.  If you decide to override the constructor for any reason,"
+" make sure to keep accepting ``**kwargs`` and call the super constructor "
+"with those ``**kwargs`` to preserve this behavior::"
+msgstr ""
+
+#: ../../quickstart.rst:81
+msgid "Simple Relationships"
+msgstr ""
+
+#: ../../quickstart.rst:83
+msgid ""
+"SQLAlchemy connects to relational databases and what relational databases"
+" are really good at are relations.  As such, we shall have an example of "
+"an application that uses two tables that have a relationship to each "
+"other::"
+msgstr ""
+
+#: ../../quickstart.rst:113
+msgid "First let's create some objects::"
+msgstr ""
+
+#: ../../quickstart.rst:121
+msgid ""
+"As you can see, there is no need to add the ``Post`` objects to the "
+"session. Since the ``Category`` is part of the session all objects "
+"associated with it through relationships will be added too.  It does not "
+"matter whether :meth:`db.session.add() "
+"<sqlalchemy.orm.session.Session.add>` is called before or after creating "
+"these objects.  The association can also be done on either side of the "
+"relationship - so a post can be created with a category or it can be "
+"added to the list of posts of the category."
+msgstr ""
+
+#: ../../quickstart.rst:130
+msgid ""
+"Let's look at the posts. Accessing them will load them from the database "
+"since the relationship is lazy-loaded, but you will probably not notice "
+"the difference - loading a list is quite fast::"
+msgstr ""
+
+#: ../../quickstart.rst:137
+msgid ""
+"While lazy-loading a relationship is fast, it can easily become a major "
+"bottleneck when you end up triggering extra queries in a loop for more "
+"than a few objects.  For this case, SQLAlchemy lets you override the "
+"loading strategy on the query level. If you wanted a single query to load"
+" all categories and their posts, you could do it like this::"
+msgstr ""
+
+#: ../../quickstart.rst:150
+msgid ""
+"If you want to get a query object for that relationship, you can do so "
+"using :meth:`~sqlalchemy.orm.query.Query.with_parent`.  Let's exclude "
+"that post about Snakes for example::"
+msgstr ""
+
+#: ../../quickstart.rst:159
+msgid "Road to Enlightenment"
+msgstr ""
+
+#: ../../quickstart.rst:161
+msgid "The only things you need to know compared to plain SQLAlchemy are:"
+msgstr ""
+
+#: ../../quickstart.rst:163
+msgid ":class:`SQLAlchemy` gives you access to the following things:"
+msgstr ""
+
+#: ../../quickstart.rst:165
+msgid ""
+"all the functions and classes from :mod:`sqlalchemy` and "
+":mod:`sqlalchemy.orm`"
+msgstr ""
+
+#: ../../quickstart.rst:167
+msgid "a preconfigured scoped session called ``session``"
+msgstr ""
+
+#: ../../quickstart.rst:168
+msgid "the :attr:`~SQLAlchemy.metadata`"
+msgstr ""
+
+#: ../../quickstart.rst:169
+msgid "the :attr:`~SQLAlchemy.engine`"
+msgstr ""
+
+#: ../../quickstart.rst:170
+msgid ""
+"a :meth:`SQLAlchemy.create_all` and :meth:`SQLAlchemy.drop_all` methods "
+"to create and drop tables according to the models."
+msgstr ""
+
+#: ../../quickstart.rst:172
+msgid "a :class:`Model` baseclass that is a configured declarative base."
+msgstr ""
+
+#: ../../quickstart.rst:174
+msgid ""
+"The :class:`Model` declarative base class behaves like a regular Python "
+"class but has a ``query`` attribute attached that can be used to query "
+"the model.  (:class:`Model` and :class:`BaseQuery`)"
+msgstr ""
+
+#: ../../quickstart.rst:178
+msgid ""
+"You have to commit the session, but you don't have to remove it at the "
+"end of the request, Flask-SQLAlchemy does that for you."
+msgstr ""
+

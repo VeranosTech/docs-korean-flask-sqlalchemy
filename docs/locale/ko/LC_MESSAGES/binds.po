@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../binds.rst:6
+msgid "Multiple Databases with Binds"
+msgstr ""
+
+#: ../../binds.rst:8
+msgid ""
+"Starting with 0.12 Flask-SQLAlchemy can easily connect to multiple "
+"databases.  To achieve that it preconfigures SQLAlchemy to support "
+"multiple “binds”."
+msgstr ""
+
+#: ../../binds.rst:12
+msgid ""
+"What are binds?  In SQLAlchemy speak a bind is something that can execute"
+" SQL statements and is usually a connection or engine.  In Flask-"
+"SQLAlchemy binds are always engines that are created for you "
+"automatically behind the scenes.  Each of these engines is then "
+"associated with a short key (the bind key).  This key is then used at "
+"model declaration time to assocate a model with a specific engine."
+msgstr ""
+
+#: ../../binds.rst:19
+msgid ""
+"If no bind key is specified for a model the default connection is used "
+"instead (as configured by ``SQLALCHEMY_DATABASE_URI``)."
+msgstr ""
+
+#: ../../binds.rst:23
+msgid "Example Configuration"
+msgstr ""
+
+#: ../../binds.rst:25
+msgid ""
+"The following configuration declares three database connections.  The "
+"special default one as well as two others named `users` (for the users) "
+"and `appmeta` (which connects to a sqlite database for read only access "
+"to some data the application provides internally)::"
+msgstr ""
+
+#: ../../binds.rst:37
+msgid "Creating and Dropping Tables"
+msgstr ""
+
+#: ../../binds.rst:39
+msgid ""
+"The :meth:`~SQLAlchemy.create_all` and :meth:`~SQLAlchemy.drop_all` "
+"methods by default operate on all declared binds, including the default "
+"one.  This behavior can be customized by providing the `bind` parameter."
+"  It takes either a single bind name, ``'__all__'`` to refer to all binds"
+" or a list of binds.  The default bind (``SQLALCHEMY_DATABASE_URI``) is "
+"named `None`:"
+msgstr ""
+
+#: ../../binds.rst:51
+msgid "Referring to Binds"
+msgstr ""
+
+#: ../../binds.rst:53
+msgid ""
+"If you declare a model you can specify the bind to use with the "
+":attr:`~Model.__bind_key__` attribute::"
+msgstr ""
+
+#: ../../binds.rst:61
+msgid ""
+"Internally the bind key is stored in the table's `info` dictionary as "
+"``'bind_key'``.  This is important to know because when you want to "
+"create a table object directly you will have to put it in there::"
+msgstr ""
+
+#: ../../binds.rst:71
+msgid ""
+"If you specified the `__bind_key__` on your models you can use them "
+"exactly the way you are used to.  The model connects to the specified "
+"database connection itself."
+msgstr ""
+

@@ -1,0 +1,202 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../queries.rst:4
+msgid "Select, Insert, Delete"
+msgstr ""
+
+#: ../../queries.rst:6
+msgid ""
+"Now that you have :ref:`declared models <models>` it's time to query the "
+"data from the database.  We will be using the model definitions from the "
+":ref:`quickstart` chapter."
+msgstr ""
+
+#: ../../queries.rst:11
+msgid "Inserting Records"
+msgstr ""
+
+#: ../../queries.rst:13
+msgid ""
+"Before we can query something we will have to insert some data.  All your"
+" models should have a constructor, so make sure to add one if you forgot."
+" Constructors are only used by you, not by SQLAlchemy internally so it's "
+"entirely up to you how you define them."
+msgstr ""
+
+#: ../../queries.rst:18
+msgid "Inserting data into the database is a three step process:"
+msgstr ""
+
+#: ../../queries.rst:20
+msgid "Create the Python object"
+msgstr ""
+
+#: ../../queries.rst:21
+msgid "Add it to the session"
+msgstr ""
+
+#: ../../queries.rst:22
+msgid "Commit the session"
+msgstr ""
+
+#: ../../queries.rst:24
+msgid ""
+"The session here is not the Flask session, but the Flask-SQLAlchemy one. "
+"It is essentially a beefed up version of a database transaction.  This is"
+" how it works:"
+msgstr ""
+
+#: ../../queries.rst:33
+msgid ""
+"Alright, that was not hard.  What happens at what point?  Before you add "
+"the object to the session, SQLAlchemy basically does not plan on adding "
+"it to the transaction.  That is good because you can still discard the "
+"changes.  For example think about creating the post at a page but you "
+"only want to pass the post to the template for preview rendering instead "
+"of storing it in the database."
+msgstr ""
+
+#: ../../queries.rst:40
+msgid ""
+"The :func:`~sqlalchemy.orm.session.Session.add` function call then adds "
+"the object.  It will issue an `INSERT` statement for the database but "
+"because the transaction is still not committed you won't get an ID back "
+"immediately.  If you do the commit, your user will have an ID:"
+msgstr ""
+
+#: ../../queries.rst:49
+msgid "Deleting Records"
+msgstr ""
+
+#: ../../queries.rst:51
+msgid ""
+"Deleting records is very similar, instead of "
+":func:`~sqlalchemy.orm.session.Session.add` use "
+":func:`~sqlalchemy.orm.session.Session.delete`:"
+msgstr ""
+
+#: ../../queries.rst:59
+msgid "Querying Records"
+msgstr ""
+
+#: ../../queries.rst:61
+msgid ""
+"So how do we get data back out of our database?  For this purpose Flask-"
+"SQLAlchemy provides a :attr:`~Model.query` attribute on your "
+":class:`Model` class.  When you access it you will get back a new query "
+"object over all records.  You can then use methods like "
+":func:`~sqlalchemy.orm.query.Query.filter` to filter the records before "
+"you fire the select with :func:`~sqlalchemy.orm.query.Query.all` or "
+":func:`~sqlalchemy.orm.query.Query.first`.  If you want to go by primary "
+"key you can also use :func:`~sqlalchemy.orm.query.Query.get`."
+msgstr ""
+
+#: ../../queries.rst:70
+msgid "The following queries assume following entries in the database:"
+msgstr ""
+
+#: ../../queries.rst:73
+msgid "`id`"
+msgstr ""
+
+#: ../../queries.rst:73
+msgid "`username`"
+msgstr ""
+
+#: ../../queries.rst:73
+msgid "`email`"
+msgstr ""
+
+#: ../../queries.rst:74
+msgid "1"
+msgstr ""
+
+#: ../../queries.rst:74
+msgid "admin"
+msgstr ""
+
+#: ../../queries.rst:74
+msgid "admin@example.com"
+msgstr ""
+
+#: ../../queries.rst:75
+msgid "2"
+msgstr ""
+
+#: ../../queries.rst:75
+msgid "peter"
+msgstr ""
+
+#: ../../queries.rst:75
+msgid "peter@example.org"
+msgstr ""
+
+#: ../../queries.rst:76
+msgid "3"
+msgstr ""
+
+#: ../../queries.rst:76
+msgid "guest"
+msgstr ""
+
+#: ../../queries.rst:76
+msgid "guest@example.com"
+msgstr ""
+
+#: ../../queries.rst:79
+msgid "Retrieve a user by username:"
+msgstr ""
+
+#: ../../queries.rst:87
+msgid "Same as above but for a non existing username gives `None`:"
+msgstr ""
+
+#: ../../queries.rst:93
+msgid "Selecting a bunch of users by a more complex expression:"
+msgstr ""
+
+#: ../../queries.rst:98
+msgid "Ordering users by something:"
+msgstr ""
+
+#: ../../queries.rst:103
+msgid "Limiting users:"
+msgstr ""
+
+#: ../../queries.rst:108
+msgid "Getting user by primary key:"
+msgstr ""
+
+#: ../../queries.rst:115
+msgid "Queries in Views"
+msgstr ""
+
+#: ../../queries.rst:117
+msgid ""
+"If you write a Flask view function it's often very handy to return a 404 "
+"error for missing entries.  Because this is a very common idiom, Flask-"
+"SQLAlchemy provides a helper for this exact purpose.  Instead of "
+":meth:`~sqlalchemy.orm.query.Query.get` one can use "
+":meth:`~Query.get_or_404` and instead of "
+":meth:`~sqlalchemy.orm.query.Query.first` :meth:`~Query.first_or_404`. "
+"This will raise 404 errors instead of returning `None`::"
+msgstr ""
+

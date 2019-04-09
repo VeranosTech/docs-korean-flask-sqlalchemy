@@ -1,0 +1,410 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../../CHANGES.rst:2
+msgid "Changelog"
+msgstr ""
+
+#: ../../../CHANGES.rst:5
+msgid "Version 2.3.3"
+msgstr ""
+
+#: ../../../CHANGES.rst:7
+msgid ""
+"Fix \"AttributeError: 'NoneType' object has no attribute 'info'\", when "
+"using polymorphic models. (`#651`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:13
+msgid "Version 2.3.2"
+msgstr ""
+
+#: ../../../CHANGES.rst:15
+msgid "Released on October 11, 2017"
+msgstr ""
+
+#: ../../../CHANGES.rst:17
+msgid "Don't mask the parent table for single-table inheritance models. (`#561`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:23
+msgid "Version 2.3.1"
+msgstr ""
+
+#: ../../../CHANGES.rst:25
+msgid "Released on October 5, 2017"
+msgstr ""
+
+#: ../../../CHANGES.rst:27
+msgid ""
+"If a model has a table name that matches an existing table in the "
+"metadata, use that table. Fixes a regression where reflected tables were "
+"not picked up by models. (`#551`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:30
+msgid ""
+"Raise the correct error when a model has a table name but no primary key."
+" (`#556`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:32
+msgid ""
+"Fix ``repr`` on models that don't have an identity because they have not "
+"been flushed yet. (`#555`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:34
+msgid ""
+"Allow specifying a ``max_per_page`` limit for pagination, to avoid users "
+"specifying high values in the request args. (`#542`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:36
+msgid ""
+"For ``paginate`` with ``error_out=False``, the minimum value for ``page``"
+" is 1 and ``per_page`` is 0. (`#558`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:47
+msgid "Version 2.3.0"
+msgstr ""
+
+#: ../../../CHANGES.rst:49
+msgid "Released on September 28, 2017"
+msgstr ""
+
+#: ../../../CHANGES.rst:51
+msgid ""
+"Multiple bugs with ``__tablename__`` generation are fixed. Names will be "
+"generated for models that define a primary key, but not for single-table "
+"inheritance subclasses. Names will not override a ``declared_attr``. "
+"``PrimaryKeyConstraint`` is detected. (`#541`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:55
+msgid ""
+"Passing an existing ``declarative_base()`` as ``model_class`` to "
+"``SQLAlchemy.__init__`` will use this as the base class instead of "
+"creating one. This allows customizing the metaclass used to construct the"
+" base. (`#546`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:59
+msgid ""
+"The undocumented ``DeclarativeMeta`` internals that the extension uses "
+"for binds and table name generation have been refactored to work as "
+"mixins. Documentation is added about how to create a custom metaclass "
+"that does not do table name generation. (`#546`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:63
+msgid ""
+"Model and metaclass code has been moved to a new ``models`` module. "
+"``_BoundDeclarativeMeta`` is renamed to ``DefaultMeta``; the old name "
+"will be removed in 3.0. (`#546`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:66
+msgid ""
+"Models have a default ``repr`` that shows the model name and primary key."
+" (`#530`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:68
+msgid ""
+"Fixed a bug where using ``init_app`` would cause connectors to always use"
+" the ``current_app`` rather than the app they were created for. This "
+"caused issues when multiple apps were registered with the extension. "
+"(`#547`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:79
+msgid "Version 2.2"
+msgstr ""
+
+#: ../../../CHANGES.rst:81
+msgid "Released on February 27, 2017, codename Dubnium"
+msgstr ""
+
+#: ../../../CHANGES.rst:83
+msgid "Minimum SQLAlchemy version is 0.8 due to use of ``sqlalchemy.inspect``."
+msgstr ""
+
+#: ../../../CHANGES.rst:84
+msgid ""
+"Added support for custom ``query_class`` and ``model_class`` as args to "
+"the ``SQLAlchemy`` constructor. (`#328`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:86
+msgid "Allow listening to SQLAlchemy events on ``db.session``. (`#364`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:87
+msgid "Allow ``__bind_key__`` on abstract models. (`#373`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:88
+msgid "Allow ``SQLALCHEMY_ECHO`` to be a string. (`#409`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:89
+msgid "Warn when ``SQLALCHEMY_DATABASE_URI`` is not set. (`#443`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:90
+msgid "Don't let pagination generate invalid page numbers. (`#460`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:91
+msgid ""
+"Drop support of Flask < 0.10. This means the db session is always tied to"
+" the app context and its teardown event. (`#461`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:93
+msgid ""
+"Tablename generation logic no longer accesses class properties unless "
+"they are ``declared_attr``. (`#467`_)"
+msgstr ""
+
+#: ../../../CHANGES.rst:106
+msgid "Version 2.1"
+msgstr ""
+
+#: ../../../CHANGES.rst:108
+msgid "Released on October 23rd 2015, codename Caesium"
+msgstr ""
+
+#: ../../../CHANGES.rst:110
+msgid ""
+"Table names are automatically generated in more cases, including "
+"subclassing mixins and abstract models."
+msgstr ""
+
+#: ../../../CHANGES.rst:112
+msgid "Allow using a custom MetaData object."
+msgstr ""
+
+#: ../../../CHANGES.rst:113
+msgid "Add support for binds parameter to session."
+msgstr ""
+
+#: ../../../CHANGES.rst:116
+msgid "Version 2.0"
+msgstr ""
+
+#: ../../../CHANGES.rst:118
+msgid "Released on August 29th 2014, codename Bohrium"
+msgstr ""
+
+#: ../../../CHANGES.rst:120
+msgid ""
+"Changed how the builtin signals are subscribed to skip non Flask-"
+"SQLAlchemy sessions.  This will also fix the attribute error about model "
+"changes not existing."
+msgstr ""
+
+#: ../../../CHANGES.rst:123
+msgid "Added a way to control how signals for model modifications are tracked."
+msgstr ""
+
+#: ../../../CHANGES.rst:124
+msgid ""
+"Made the ``SignallingSession`` a public interface and added a hook for "
+"customizing session creation."
+msgstr ""
+
+#: ../../../CHANGES.rst:126
+msgid ""
+"If the ``bind`` parameter is given to the signalling session it will no "
+"longer cause an error that a parameter is given twice."
+msgstr ""
+
+#: ../../../CHANGES.rst:128
+msgid "Added working table reflection support."
+msgstr ""
+
+#: ../../../CHANGES.rst:129
+msgid "Enabled autoflush by default."
+msgstr ""
+
+#: ../../../CHANGES.rst:130
+msgid "Consider ``SQLALCHEMY_COMMIT_ON_TEARDOWN`` harmful and remove from docs."
+msgstr ""
+
+#: ../../../CHANGES.rst:133
+msgid "Version 1.0"
+msgstr ""
+
+#: ../../../CHANGES.rst:135
+msgid "Released on July 20th 2013, codename Aurum"
+msgstr ""
+
+#: ../../../CHANGES.rst:137
+msgid "Added Python 3.3 support."
+msgstr ""
+
+#: ../../../CHANGES.rst:138
+msgid "Dropped 2.5 compatibility."
+msgstr ""
+
+#: ../../../CHANGES.rst:139
+msgid "Various bugfixes"
+msgstr ""
+
+#: ../../../CHANGES.rst:140
+msgid "Changed versioning format to do major releases for each update now."
+msgstr ""
+
+#: ../../../CHANGES.rst:143
+msgid "Version 0.16"
+msgstr ""
+
+#: ../../../CHANGES.rst:145
+msgid "New distribution format (flask_sqlalchemy)"
+msgstr ""
+
+#: ../../../CHANGES.rst:146
+msgid "Added support for Flask 0.9 specifics."
+msgstr ""
+
+#: ../../../CHANGES.rst:149
+msgid "Version 0.15"
+msgstr ""
+
+#: ../../../CHANGES.rst:151
+msgid "Added session support for multiple databases"
+msgstr ""
+
+#: ../../../CHANGES.rst:154
+msgid "Version 0.14"
+msgstr ""
+
+#: ../../../CHANGES.rst:156
+msgid "Make relative sqlite paths relative to the application root."
+msgstr ""
+
+#: ../../../CHANGES.rst:159
+msgid "Version 0.13"
+msgstr ""
+
+#: ../../../CHANGES.rst:161
+msgid "Fixed an issue with Flask-SQLAlchemy not selecting the correct binds."
+msgstr ""
+
+#: ../../../CHANGES.rst:164
+msgid "Version 0.12"
+msgstr ""
+
+#: ../../../CHANGES.rst:165
+msgid "Added support for multiple databases."
+msgstr ""
+
+#: ../../../CHANGES.rst:166
+msgid "Expose Flask-SQLAlchemy's BaseQuery as `db.Query`."
+msgstr ""
+
+#: ../../../CHANGES.rst:167
+msgid ""
+"Set default query_class for `db.relation`, `db.relationship`, and "
+"`db.dynamic_loader` to Flask-SQLAlchemy's BaseQuery."
+msgstr ""
+
+#: ../../../CHANGES.rst:169
+msgid "Improved compatibility with Flask 0.7."
+msgstr ""
+
+#: ../../../CHANGES.rst:172
+msgid "Version 0.11"
+msgstr ""
+
+#: ../../../CHANGES.rst:174
+msgid "Fixed a bug introduced in 0.10 with alternative table constructors."
+msgstr ""
+
+#: ../../../CHANGES.rst:177
+msgid "Version 0.10"
+msgstr ""
+
+#: ../../../CHANGES.rst:179
+msgid "Added support for signals."
+msgstr ""
+
+#: ../../../CHANGES.rst:180
+msgid ""
+"Table names are now automatically set from the class name unless "
+"overriden."
+msgstr ""
+
+#: ../../../CHANGES.rst:182
+msgid ""
+"Model.query now always works for applications directly passed to the "
+"SQLAlchemy constructor.  Furthermore the property now raises an "
+"RuntimeError instead of being None."
+msgstr ""
+
+#: ../../../CHANGES.rst:185
+msgid "added session options to constructor."
+msgstr ""
+
+#: ../../../CHANGES.rst:186
+msgid "fixed a broken `__repr__`"
+msgstr ""
+
+#: ../../../CHANGES.rst:187
+msgid ""
+"`db.Table` is now a factor function that creates table objects. This "
+"makes it possible to omit the metadata."
+msgstr ""
+
+#: ../../../CHANGES.rst:191
+msgid "Version 0.9"
+msgstr ""
+
+#: ../../../CHANGES.rst:193
+msgid "applied changes to pass the Flask extension approval process."
+msgstr ""
+
+#: ../../../CHANGES.rst:196
+msgid "Version 0.8"
+msgstr ""
+
+#: ../../../CHANGES.rst:198
+msgid "added a few configuration keys for creating connections."
+msgstr ""
+
+#: ../../../CHANGES.rst:199
+msgid "automatically activate connection recycling for MySQL connections."
+msgstr ""
+
+#: ../../../CHANGES.rst:200
+msgid "added support for the Flask testing mode."
+msgstr ""
+
+#: ../../../CHANGES.rst:203
+msgid "Version 0.7"
+msgstr ""
+
+#: ../../../CHANGES.rst:205
+msgid "Initial public release"
+msgstr ""
+

@@ -1,0 +1,653 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../api.rst:2
+msgid "API"
+msgstr ""
+
+#: ../../api.rst:7
+msgid "Configuration"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:1 of
+msgid ""
+"This class is used to control the SQLAlchemy integration to one or more "
+"Flask applications.  Depending on how you initialize the object it is "
+"usable right away or will attach as needed to a Flask application."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:6 of
+msgid ""
+"There are two usage modes which work very similarly.  One is binding the "
+"instance to a very specific Flask application::"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:12 of
+msgid ""
+"The second possibility is to create the object once and configure the "
+"application later to support it::"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:22 of
+msgid ""
+"The difference between the two is that in the first case methods like "
+":meth:`create_all` and :meth:`drop_all` will work all the time but in the"
+" second case a :meth:`flask.Flask.app_context` has to exist."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:26 of
+msgid ""
+"By default Flask-SQLAlchemy will apply some backend-specific settings to "
+"improve your experience with them.  As of SQLAlchemy 0.6 SQLAlchemy will "
+"probe the library for native unicode support.  If it detects unicode it "
+"will let the library handle that, otherwise do that itself. Sometimes "
+"this detection can fail in which case you might want to set "
+"``use_native_unicode`` (or the ``SQLALCHEMY_NATIVE_UNICODE`` "
+"configuration key) to ``False``.  Note that the configuration key "
+"overrides the value you pass to the constructor."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:35 of
+msgid ""
+"This class also provides access to all the SQLAlchemy functions and "
+"classes from the :mod:`sqlalchemy` and :mod:`sqlalchemy.orm` modules.  So"
+" you can declare models like this::"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:43 of
+msgid ""
+"You can still use :mod:`sqlalchemy` and :mod:`sqlalchemy.orm` directly, "
+"but note that Flask-SQLAlchemy customizations are available only through "
+"an instance of this :class:`SQLAlchemy` class.  Query classes default to "
+":class:`BaseQuery` for `db.Query`, `db.Model.query_class`, and the "
+"default query_class for `db.relationship` and `db.backref`.  If you use "
+"these interfaces through :mod:`sqlalchemy` and :mod:`sqlalchemy.orm` "
+"directly, the default query class will be that of :mod:`sqlalchemy`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:51 of
+msgid "Check types carefully"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:53 of
+msgid ""
+"Don't perform type or `isinstance` checks against `db.Table`, which "
+"emulates `Table` behavior but is not a class. `db.Table` exposes the "
+"`Table` interface, but is a function which allows omission of metadata."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:57 of
+msgid ""
+"The ``session_options`` parameter, if provided, is a dict of parameters "
+"to be passed to the session constructor.  See "
+":class:`~sqlalchemy.orm.session.Session` for the standard options."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:61 of
+msgid "The `session_options` parameter was added."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:64 of
+msgid ""
+"`scopefunc` is now accepted on `session_options`. It allows specifying  a"
+" custom function which will define the SQLAlchemy session's scoping."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:68 of
+msgid ""
+"The `metadata` parameter was added. This allows for setting custom naming"
+" conventions among other, non-trivial things."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:72 of
+msgid ""
+"The `query_class` parameter was added, to allow customisation of the "
+"query class, in place of the default of :class:`BaseQuery`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:76 of
+msgid ""
+"The `model_class` parameter was added, which allows a custom model class "
+"to be used in place of :class:`Model`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy:79 of
+msgid "Utilise the same query class across `session`, `Model.query` and `Query`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.Query:1 of
+msgid ""
+"Default query class used by :attr:`Model.query` and other queries. "
+"Customize this by passing ``query_class`` to :func:`SQLAlchemy`. Defaults"
+" to :class:`BaseQuery`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.apply_driver_hacks:1 of
+msgid ""
+"This method is called before engine creation and used to inject driver "
+"specific hacks into the options.  The `options` parameter is a dictionary"
+" of keyword arguments that will then be used to call the "
+":func:`sqlalchemy.create_engine` function."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.apply_driver_hacks:6 of
+msgid ""
+"The default implementation provides some saner defaults for things like "
+"pool sizes for MySQL and sqlite.  Also it injects the setting of "
+"`SQLALCHEMY_NATIVE_UNICODE`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_all:1 of
+msgid "Creates all tables."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_all:3
+#: flask_sqlalchemy.SQLAlchemy.drop_all:3 flask_sqlalchemy.SQLAlchemy.reflect:3
+#: of
+msgid "Parameters were added"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_scoped_session:1 of
+msgid ""
+"Create a :class:`~sqlalchemy.orm.scoping.scoped_session` on the factory "
+"from :meth:`create_session`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_scoped_session:4 of
+msgid ""
+"An extra key ``'scopefunc'`` can be set on the ``options`` dict to "
+"specify a custom scope function.  If it's not provided, Flask's app "
+"context stack identity is used. This will ensure that sessions are "
+"created and removed with the request/response cycle, and should be fine "
+"in most cases."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_scoped_session
+#: flask_sqlalchemy.SQLAlchemy.create_session
+#: flask_sqlalchemy.SQLAlchemy.make_declarative_base
+#: flask_sqlalchemy.SignallingSession.get_bind of
+msgid "Parameters"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_scoped_session:10 of
+msgid "dict of keyword arguments passed to session class  in ``create_session``"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_session:1 of
+msgid "Create the session factory used by :meth:`create_scoped_session`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_session:3 of
+msgid ""
+"The factory **must** return an object that SQLAlchemy recognizes as a "
+"session, or registering session events may raise an exception."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_session:6 of
+msgid ""
+"Valid factories include a :class:`~sqlalchemy.orm.session.Session` class "
+"or a :class:`~sqlalchemy.orm.session.sessionmaker`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_session:9 of
+msgid ""
+"The default implementation creates a ``sessionmaker`` for "
+":class:`SignallingSession`."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.create_session:11 of
+msgid "dict of keyword arguments passed to session class"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.drop_all:1 of
+msgid "Drops all tables."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.engine:1 of
+msgid ""
+"Gives access to the engine.  If the database configuration is bound to a "
+"specific application (initialized with an application) this will always "
+"return a database connection.  If however the current application is used"
+" this might raise a :exc:`RuntimeError` if no application is active at "
+"the moment."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.get_app:1 of
+msgid "Helper method that implements the logic to look up an application."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.get_binds:1 of
+msgid "Returns a dictionary with a table->engine mapping."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.get_binds:3 of
+msgid "This is suitable for use of sessionmaker(binds=db.get_binds(app))."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.get_engine:1 of
+msgid "Returns a specific engine."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.get_tables_for_bind:1 of
+msgid "Returns a list of all tables relevant for a bind."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.init_app:1 of
+msgid ""
+"This callback can be used to initialize an application for the use with "
+"this database setup.  Never use a database in the context of an "
+"application not initialized that way or connections will leak."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.make_connector:1 of
+msgid "Creates the connector for a given state and bind."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.make_declarative_base:1 of
+msgid "Creates the declarative base that all models will inherit from."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.make_declarative_base:3 of
+msgid ""
+"base model class (or a tuple of base classes) to pass to "
+":func:`~sqlalchemy.ext.declarative.declarative_base`. Or a class returned"
+" from ``declarative_base``, in which case a new base class is not "
+"created."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.make_declarative_base of
+msgid "param"
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.make_declarative_base:7 of
+msgid ""
+"metadata: :class:`~sqlalchemy.MetaData` instance to use, or none to use "
+"SQLAlchemy's default."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.metadata:1 of
+msgid "The metadata associated with ``db.Model``."
+msgstr ""
+
+#: flask_sqlalchemy.SQLAlchemy.reflect:1 of
+msgid "Reflects tables from the database."
+msgstr ""
+
+#: ../../api.rst:13
+msgid "Models"
+msgstr ""
+
+#: flask_sqlalchemy.Model:1 of
+msgid "Base class for SQLAlchemy declarative base model."
+msgstr ""
+
+#: flask_sqlalchemy.Model:3 of
+msgid ""
+"To define models, subclass :attr:`db.Model <SQLAlchemy.Model>`, not this "
+"class. To customize ``db.Model``, subclass this and pass it as "
+"``model_class`` to :class:`SQLAlchemy`."
+msgstr ""
+
+#: ../../api.rst:20
+msgid ""
+"Optionally declares the bind to use. ``None`` refers to the default bind."
+" For more information see :ref:`binds`."
+msgstr ""
+
+#: ../../api.rst:25
+msgid ""
+"The name of the table in the database. This is required by SQLAlchemy; "
+"however, Flask-SQLAlchemy will set it automatically if a model has a "
+"primary key defined. If the ``__table__`` or ``__tablename__`` is set "
+"explicitly, that will be used instead."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery:1 of
+msgid ""
+"SQLAlchemy :class:`~sqlalchemy.orm.query.Query` subclass with convenience"
+" methods for querying in a web application."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery:3 of
+msgid ""
+"This is the default :attr:`~Model.query` object used for models, and "
+"exposed as :attr:`~SQLAlchemy.Query`. Override the query class for an "
+"individual model by subclassing this and setting "
+":attr:`~Model.query_class`."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.first_or_404:1 of
+msgid ""
+"Like :meth:`first` but aborts with 404 if not found instead of returning "
+"``None``."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.get_or_404:1 of
+msgid ""
+"Like :meth:`get` but aborts with 404 if not found instead of returning "
+"``None``."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:1 of
+msgid "Returns ``per_page`` items from page ``page``."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:3 of
+msgid ""
+"If ``page`` or ``per_page`` are ``None``, they will be retrieved from the"
+" request query. If ``max_per_page`` is specified, ``per_page`` will be "
+"limited to that value. If there is no request or they aren't in the "
+"query, they default to 1 and 20 respectively."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:8 of
+msgid ""
+"When ``error_out`` is ``True`` (default), the following rules will cause "
+"a 404 response:"
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:11 of
+msgid "No items are found and ``page`` is not 1."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:12 of
+msgid "``page`` is less than 1, or ``per_page`` is negative."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:13 of
+msgid "``page`` or ``per_page`` are not ints."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:15 of
+msgid ""
+"When ``error_out`` is ``False``, ``page`` and ``per_page`` default to 1 "
+"and 20 respectively."
+msgstr ""
+
+#: flask_sqlalchemy.BaseQuery.paginate:18 of
+msgid "Returns a :class:`Pagination` object."
+msgstr ""
+
+#: ../../api.rst:34
+msgid "Sessions"
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession:1 of
+msgid ""
+"The signalling session is the default session that Flask-SQLAlchemy uses."
+"  It extends the default session system with bind selection and "
+"modification tracking."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession:5 of
+msgid ""
+"If you want to use a different session you can override the "
+":meth:`SQLAlchemy.create_session` function."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession:10 of
+msgid ""
+"The `binds` option was added, which allows a session to be joined to an "
+"external transaction."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:1 of
+msgid "Return a \"bind\" to which this :class:`.Session` is bound."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:3 of
+msgid ""
+"The \"bind\" is usually an instance of :class:`.Engine`, except in the "
+"case where the :class:`.Session` has been explicitly bound directly to a "
+":class:`.Connection`."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:7 of
+msgid ""
+"For a multiply-bound or unbound :class:`.Session`, the ``mapper`` or "
+"``clause`` arguments are used to determine the appropriate bind to "
+"return."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:11 of
+msgid ""
+"Note that the \"mapper\" argument is usually present when "
+":meth:`.Session.get_bind` is called via an ORM operation such as a "
+":meth:`.Session.query`, each individual INSERT/UPDATE/DELETE operation "
+"within a :meth:`.Session.flush`, call, etc."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:17 of
+msgid "The order of resolution is:"
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:19 of
+msgid ""
+"if mapper given and session.binds is present, locate a bind based first "
+"on the mapper in use, then on the mapped class in use, then on any base "
+"classes that are present in the ``__mro__`` of the mapped class, from "
+"more specific superclasses to more general."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:24 of
+msgid ""
+"if clause given and session.binds is present, locate a bind based on "
+":class:`.Table` objects found in the given clause present in "
+"session.binds."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:27 of
+msgid "if session.bind is present, return that."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:28 of
+msgid ""
+"if clause given, attempt to return a bind linked to the "
+":class:`.MetaData` ultimately associated with the clause."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:31 of
+msgid ""
+"if mapper given, attempt to return a bind linked to the "
+":class:`.MetaData` ultimately associated with the :class:`.Table` or "
+"other selectable to which the mapper is mapped."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:35 of
+msgid ""
+"No bind can be found, :exc:`~sqlalchemy.exc.UnboundExecutionError` is "
+"raised."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:38 of
+msgid ""
+"Note that the :meth:`.Session.get_bind` method can be overridden on a "
+"user-defined subclass of :class:`.Session` to provide any kind of bind "
+"resolution scheme.  See the example at "
+":ref:`session_custom_partitioning`."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:43 of
+msgid ""
+"Optional :func:`.mapper` mapped class or instance of :class:`.Mapper`.   "
+"The bind can be derived from a :class:`.Mapper` first by consulting the "
+"\"binds\" map associated with this :class:`.Session`, and secondly by "
+"consulting the :class:`.MetaData` associated with the :class:`.Table` to "
+"which the :class:`.Mapper` is mapped for a bind."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:51 of
+msgid ""
+"A :class:`.ClauseElement` (i.e. :func:`~.sql.expression.select`, "
+":func:`~.sql.expression.text`, etc.).  If the ``mapper`` argument is not "
+"present or could not produce a bind, the given expression construct will "
+"be searched for a bound element, typically a :class:`.Table` associated "
+"with bound :class:`.MetaData`."
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:61 of
+msgid ":ref:`session_partitioning`"
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:63 of
+msgid ":paramref:`.Session.binds`"
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:65 of
+msgid ":meth:`.Session.bind_mapper`"
+msgstr ""
+
+#: flask_sqlalchemy.SignallingSession.get_bind:67 of
+msgid ":meth:`.Session.bind_table`"
+msgstr ""
+
+#: ../../api.rst:40
+msgid "Utilities"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination:1 of
+msgid ""
+"Internal helper class returned by :meth:`BaseQuery.paginate`.  You can "
+"also construct it from any other SQLAlchemy query object if you are "
+"working with other libraries.  Additionally it is possible to pass `None`"
+" as query object in which case the :meth:`prev` and :meth:`next` will no "
+"longer work."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.has_next:1 of
+msgid "True if a next page exists."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.has_prev:1 of
+msgid "True if a previous page exists"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.items:1 of
+msgid "the items for the current page"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.iter_pages:1 of
+msgid ""
+"Iterates over the page numbers in the pagination.  The four parameters "
+"control the thresholds how many numbers should be produced from the "
+"sides.  Skipped page numbers are represented as `None`. This is how you "
+"could render such a pagination in the templates:"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.next:1 of
+msgid "Returns a :class:`Pagination` object for the next page."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.next_num:1 of
+msgid "Number of the next page"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.page:1 of
+msgid "the current page number (1 indexed)"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.pages:1 of
+msgid "The total number of pages"
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.per_page:1 of
+msgid "the number of items to be displayed on a page."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.prev:1 of
+msgid "Returns a :class:`Pagination` object for the previous page."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.prev_num:1 of
+msgid "Number of the previous page."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.query:1 of
+msgid "the unlimited query object that was used to create this pagination object."
+msgstr ""
+
+#: flask_sqlalchemy.Pagination.total:1 of
+msgid "the total number of items matching the query"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:1 of
+msgid ""
+"In debug mode Flask-SQLAlchemy will log all the SQL queries sent to the "
+"database.  This information is available until the end of request which "
+"makes it possible to easily ensure that the SQL generated is the one "
+"expected on errors or in unittesting.  If you don't want to enable the "
+"DEBUG mode for your unittests you can also enable the query recording by "
+"setting the ``'SQLALCHEMY_RECORD_QUERIES'`` config variable to `True`.  "
+"This is automatically enabled if Flask is in testing mode."
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:9 of
+msgid ""
+"The value returned will be a list of named tuples with the following "
+"attributes:"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:13 of
+msgid "`statement`"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:13 of
+msgid "The SQL statement issued"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:16 of
+msgid "`parameters`"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:16 of
+msgid "The parameters for the SQL statement"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:22 of
+msgid "`start_time` / `end_time`"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:19 of
+msgid ""
+"Time the query started / the results arrived.  Please keep in mind that "
+"the timer function used depends on your platform. These values are only "
+"useful for sorting or comparing.  They do not necessarily represent an "
+"absolute timestamp."
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:25 of
+msgid "`duration`"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:25 of
+msgid "Time the query took in seconds"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:29 of
+msgid "`context`"
+msgstr ""
+
+#: flask_sqlalchemy.get_debug_queries:28 of
+msgid ""
+"A string giving a rough estimation of where in your application query was"
+" issued.  The exact format is undefined so don't try to reconstruct "
+"filename or function name."
+msgstr ""
+

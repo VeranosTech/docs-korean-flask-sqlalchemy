@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2010 - 2019, Armin Ronacher
+# This file is distributed under the same license as the Flask-SQLAlchemy
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Flask-SQLAlchemy 2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 11:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../contexts.rst:6
+msgid "Introduction into Contexts"
+msgstr ""
+
+#: ../../contexts.rst:8
+msgid ""
+"If you are planning on using only one application you can largely skip "
+"this chapter.  Just pass your application to the :class:`SQLAlchemy` "
+"constructor and you're usually set.  However if you want to use more than"
+" one application or create the application dynamically in a function you "
+"want to read on."
+msgstr ""
+
+#: ../../contexts.rst:14
+msgid ""
+"If you define your application in a function, but the :class:`SQLAlchemy`"
+" object globally, how does the latter learn about the former?  The answer"
+" is the :meth:`~SQLAlchemy.init_app` function::"
+msgstr ""
+
+#: ../../contexts.rst:29
+msgid ""
+"What it does is prepare the application to work with :class:`SQLAlchemy`."
+"  However that does not now bind the :class:`SQLAlchemy` object to your "
+"application.  Why doesn't it do that? Because there might be more than "
+"one application created."
+msgstr ""
+
+#: ../../contexts.rst:34
+msgid ""
+"So how does :class:`SQLAlchemy` come to know about your application? You "
+"will have to setup an application context.  If you are working inside a "
+"Flask view function or a CLI command, that automatically happens. "
+"However, if you are working inside the interactive shell, you will have "
+"to do that yourself (see `Creating an Application Context "
+"<http://flask.pocoo.org/docs/appcontext/#creating-an-application-"
+"context>`_)."
+msgstr ""
+
+#: ../../contexts.rst:41
+msgid ""
+"If you try to perform database operations outside an application context,"
+" you will see the following error:"
+msgstr ""
+
+#: ../../contexts.rst:44
+msgid ""
+"No application found. Either work inside a view function or push an "
+"application context."
+msgstr ""
+
+#: ../../contexts.rst:47
+msgid "In a nutshell, do something like this:"
+msgstr ""
+
+#: ../../contexts.rst:53
+msgid "Alternatively, use the with-statement to take care of setup and teardown::"
+msgstr ""
+
+#: ../../contexts.rst:61
+msgid ""
+"Some functions inside Flask-SQLAlchemy also accept optionally the "
+"application to operate on:"
+msgstr ""
+
