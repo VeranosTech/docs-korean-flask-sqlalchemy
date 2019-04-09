@@ -72,11 +72,11 @@ msgstr "짠, 이제 데이터베이스가 생성됐다. 이제 사용자를 몇 
 
 #: ../../quickstart.rst:54
 msgid "But they are not yet in the database, so let's make sure they are::"
-msgstr ""
+msgstr "하지만 아직 데이터베이스안에는 없다. 데이터베이스내에 생성하려면::"
 
 #: ../../quickstart.rst:60
 msgid "Accessing the data in database is easy as a pie::"
-msgstr ""
+msgstr "데이터베이스 안의 데이터를 접근하는 것은 아주 쉽다::"
 
 #: ../../quickstart.rst:67
 msgid ""
@@ -87,10 +87,14 @@ msgid ""
 " make sure to keep accepting ``**kwargs`` and call the super constructor "
 "with those ``**kwargs`` to preserve this behavior::"
 msgstr ""
+"``User`` 클래스에서 ``__init__`` 메서드를 정의하지 않았었다는 점에 주의하라. "
+"SQL알케미가 모든 모델 클래스에 대해 열과 관계를 키워드 인수로 가지는 암시적 생성자를 "
+"자동으로 만들어주기 때문이다. 만약 어떤 이유로든 이 생성자를 덮어쓰려면 "
+"``**kwargs``\ 를 받고 부모 생성자를 ``**kwargs``\ 로 호출해야 한다.::" 
 
 #: ../../quickstart.rst:81
 msgid "Simple Relationships"
-msgstr ""
+msgstr "간단한 관계"
 
 #: ../../quickstart.rst:83
 msgid ""
@@ -99,10 +103,12 @@ msgid ""
 "an application that uses two tables that have a relationship to each "
 "other::"
 msgstr ""
+"SQL알케미는 관계형 데이터베이스에 연결하고 관계형 데이터베이스는 관계를 다룬다. "
+"두 개의 테이블이 서로 관계를 가지는 애플리케이션 예를 살펴보자::"
 
 #: ../../quickstart.rst:113
 msgid "First let's create some objects::"
-msgstr ""
+msgstr "우선 객체를 몇 개 만든다::"
 
 #: ../../quickstart.rst:121
 msgid ""
@@ -115,6 +121,7 @@ msgid ""
 "relationship - so a post can be created with a category or it can be "
 "added to the list of posts of the category."
 msgstr ""
+
 
 #: ../../quickstart.rst:130
 msgid ""
