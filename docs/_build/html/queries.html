@@ -1,0 +1,249 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Select, Insert, Delete &#8212; Flask-SQLAlchemy 2.3.2.dev documentation</title>
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Multiple Databases with Binds" href="binds.html" />
+    <link rel="prev" title="Declaring Models" href="models.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>탐색</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="전체 색인"
+             accesskey="I">색인</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 모듈 목록"
+             >모듈</a> |</li>
+        <li class="right" >
+          <a href="binds.html" title="Multiple Databases with Binds"
+             accesskey="N">다음</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="Declaring Models"
+             accesskey="P">이전</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Flask-SQLAlchemy 2.3.2.dev documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="select-insert-delete">
+<h1>Select, Insert, Delete<a class="headerlink" href="#select-insert-delete" title="제목 주소">¶</a></h1>
+<p>Now that you have <a class="reference internal" href="models.html#models"><span class="std std-ref">declared models</span></a> it's time to query the
+data from the database.  We will be using the model definitions from the
+<a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">초간단 안내</span></a> chapter.</p>
+<div class="section" id="inserting-records">
+<h2>Inserting Records<a class="headerlink" href="#inserting-records" title="제목 주소">¶</a></h2>
+<p>Before we can query something we will have to insert some data.  All your
+models should have a constructor, so make sure to add one if you forgot.
+Constructors are only used by you, not by SQLAlchemy internally so it's
+entirely up to you how you define them.</p>
+<p>Inserting data into the database is a three step process:</p>
+<ol class="arabic simple">
+<li>Create the Python object</li>
+<li>Add it to the session</li>
+<li>Commit the session</li>
+</ol>
+<p>The session here is not the Flask session, but the Flask-SQLAlchemy one.
+It is essentially a beefed up version of a database transaction.  This is
+how it works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">yourapp</span> <span class="k">import</span> <span class="n">User</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s1">&#39;admin@example.com&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Alright, that was not hard.  What happens at what point?  Before you add
+the object to the session, SQLAlchemy basically does not plan on adding it
+to the transaction.  That is good because you can still discard the
+changes.  For example think about creating the post at a page but you only
+want to pass the post to the template for preview rendering instead of
+storing it in the database.</p>
+<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">add()</span></code> function call then adds
+the object.  It will issue an <cite>INSERT</cite> statement for the database but
+because the transaction is still not committed you won't get an ID back
+immediately.  If you do the commit, your user will have an ID:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">id</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deleting-records">
+<h2>Deleting Records<a class="headerlink" href="#deleting-records" title="제목 주소">¶</a></h2>
+<p>Deleting records is very similar, instead of
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add()</span></code> use
+<code class="xref py py-func docutils literal notranslate"><span class="pre">delete()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="querying-records">
+<h2>Querying Records<a class="headerlink" href="#querying-records" title="제목 주소">¶</a></h2>
+<p>So how do we get data back out of our database?  For this purpose
+Flask-SQLAlchemy provides a <code class="xref py py-attr docutils literal notranslate"><span class="pre">query</span></code> attribute on your
+<a class="reference internal" href="api.html#flask_sqlalchemy.Model" title="flask_sqlalchemy.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a> class.  When you access it you will get back a new query
+object over all records.  You can then use methods like
+<code class="xref py py-func docutils literal notranslate"><span class="pre">filter()</span></code> to filter the records before
+you fire the select with <code class="xref py py-func docutils literal notranslate"><span class="pre">all()</span></code> or
+<code class="xref py py-func docutils literal notranslate"><span class="pre">first()</span></code>.  If you want to go by
+primary key you can also use <code class="xref py py-func docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<p>The following queries assume following entries in the database:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="26%" />
+<col width="49%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><cite>id</cite></td>
+<td><cite>username</cite></td>
+<td><cite>email</cite></td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>admin</td>
+<td><a class="reference external" href="mailto:admin&#37;&#52;&#48;example&#46;com">admin<span>&#64;</span>example<span>&#46;</span>com</a></td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>peter</td>
+<td><a class="reference external" href="mailto:peter&#37;&#52;&#48;example&#46;org">peter<span>&#64;</span>example<span>&#46;</span>org</a></td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>guest</td>
+<td><a class="reference external" href="mailto:guest&#37;&#52;&#48;example&#46;com">guest<span>&#64;</span>example<span>&#46;</span>com</a></td>
+</tr>
+</tbody>
+</table>
+<p>Retrieve a user by username:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;peter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span><span class="o">.</span><span class="n">id</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span><span class="o">.</span><span class="n">email</span>
+<span class="go">&#39;peter@example.org&#39;</span>
+</pre></div>
+</div>
+<p>Same as above but for a non existing username gives <cite>None</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">missing</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;missing&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">missing</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Selecting a bunch of users by a more complex expression:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;@example.com&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[&lt;User &#39;admin&#39;&gt;, &lt;User &#39;guest&#39;&gt;]</span>
+</pre></div>
+</div>
+<p>Ordering users by something:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[&lt;User &#39;admin&#39;&gt;, &lt;User &#39;guest&#39;&gt;, &lt;User &#39;peter&#39;&gt;]</span>
+</pre></div>
+</div>
+<p>Limiting users:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[&lt;User &#39;admin&#39;&gt;]</span>
+</pre></div>
+</div>
+<p>Getting user by primary key:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;User &#39;admin&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="queries-in-views">
+<h2>Queries in Views<a class="headerlink" href="#queries-in-views" title="제목 주소">¶</a></h2>
+<p>If you write a Flask view function it's often very handy to return a 404
+error for missing entries.  Because this is a very common idiom,
+Flask-SQLAlchemy provides a helper for this exact purpose.  Instead of
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/query.html#sqlalchemy.orm.query.Query.get" title="(in SQLAlchemy v1.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> one can use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_or_404()</span></code> and instead of
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/query.html#sqlalchemy.orm.query.Query.first" title="(in SQLAlchemy v1.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">first()</span></code></a> <code class="xref py py-meth docutils literal notranslate"><span class="pre">first_or_404()</span></code>.
+This will raise 404 errors instead of returning <cite>None</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/user/&lt;username&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">show_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_404</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;show_user.html&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/flask-sqlalchemy-logo.png" alt="Logo"
+    style="margin-left: -10px"/>
+</a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Select, Insert, Delete</a><ul>
+<li><a class="reference internal" href="#inserting-records">Inserting Records</a></li>
+<li><a class="reference internal" href="#deleting-records">Deleting Records</a></li>
+<li><a class="reference internal" href="#querying-records">Querying Records</a></li>
+<li><a class="reference internal" href="#queries-in-views">Queries in Views</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="models.html" title="이전 장">Declaring Models</a></li>
+      <li>Next: <a href="binds.html" title="다음 장">Multiple Databases with Binds</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/queries.rst.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2010 - 2019, Armin Ronacher.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>

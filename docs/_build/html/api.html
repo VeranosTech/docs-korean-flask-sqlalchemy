@@ -1,0 +1,663 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API &#8212; Flask-SQLAlchemy 2.3.2.dev documentation</title>
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Customizing" href="customizing.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>탐색</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="전체 색인"
+             accesskey="I">색인</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 모듈 목록"
+             >모듈</a> |</li>
+        <li class="right" >
+          <a href="changelog.html" title="Changelog"
+             accesskey="N">다음</a> |</li>
+        <li class="right" >
+          <a href="customizing.html" title="Customizing"
+             accesskey="P">이전</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Flask-SQLAlchemy 2.3.2.dev documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flask_sqlalchemy">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-flask_sqlalchemy" title="제목 주소">¶</a></h1>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="flask_sqlalchemy.SQLAlchemy">
+<em class="property">class </em><code class="descclassname">flask_sqlalchemy.</code><code class="descname">SQLAlchemy</code><span class="sig-paren">(</span><em>app=None</em>, <em>use_native_unicode=True</em>, <em>session_options=None</em>, <em>metadata=None</em>, <em>query_class=&lt;class 'flask_sqlalchemy.BaseQuery'&gt;</em>, <em>model_class=&lt;class 'flask_sqlalchemy.model.Model'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy" title="정의 주소">¶</a></dt>
+<dd><p>This class is used to control the SQLAlchemy integration to one
+or more Flask applications.  Depending on how you initialize the
+object it is usable right away or will attach as needed to a
+Flask application.</p>
+<p>There are two usage modes which work very similarly.  One is binding
+the instance to a very specific Flask application:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second possibility is to create the object once and configure the
+application later to support it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">create_app</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span>
+</pre></div>
+</div>
+<p>The difference between the two is that in the first case methods like
+<a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy.create_all" title="flask_sqlalchemy.SQLAlchemy.create_all"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_all()</span></code></a> and <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy.drop_all" title="flask_sqlalchemy.SQLAlchemy.drop_all"><code class="xref py py-meth docutils literal notranslate"><span class="pre">drop_all()</span></code></a> will work all the time but in
+the second case a <a class="reference external" href="http://flask.pocoo.org/docs/api/#flask.Flask.app_context" title="(in Flask v1.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">flask.Flask.app_context()</span></code></a> has to exist.</p>
+<p>By default Flask-SQLAlchemy will apply some backend-specific settings
+to improve your experience with them.  As of SQLAlchemy 0.6 SQLAlchemy
+will probe the library for native unicode support.  If it detects
+unicode it will let the library handle that, otherwise do that itself.
+Sometimes this detection can fail in which case you might want to set
+<code class="docutils literal notranslate"><span class="pre">use_native_unicode</span></code> (or the <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_NATIVE_UNICODE</span></code> configuration
+key) to <code class="docutils literal notranslate"><span class="pre">False</span></code>.  Note that the configuration key overrides the
+value you pass to the constructor.</p>
+<p>This class also provides access to all the SQLAlchemy functions and classes
+from the <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy</span></code> and <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/scalar_mapping.html#module-sqlalchemy.orm" title="(in SQLAlchemy v1.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy.orm</span></code></a> modules.  So you can
+declare models like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pw_hash</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">80</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You can still use <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy</span></code> and <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/scalar_mapping.html#module-sqlalchemy.orm" title="(in SQLAlchemy v1.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy.orm</span></code></a> directly, but
+note that Flask-SQLAlchemy customizations are available only through an
+instance of this <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy" title="flask_sqlalchemy.SQLAlchemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemy</span></code></a> class.  Query classes default to
+<a class="reference internal" href="#flask_sqlalchemy.BaseQuery" title="flask_sqlalchemy.BaseQuery"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseQuery</span></code></a> for <cite>db.Query</cite>, <cite>db.Model.query_class</cite>, and the default
+query_class for <cite>db.relationship</cite> and <cite>db.backref</cite>.  If you use these
+interfaces through <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy</span></code> and <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/scalar_mapping.html#module-sqlalchemy.orm" title="(in SQLAlchemy v1.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy.orm</span></code></a> directly,
+the default query class will be that of <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlalchemy</span></code>.</p>
+<div class="admonition-check-types-carefully admonition">
+<p class="first admonition-title">Check types carefully</p>
+<p class="last">Don't perform type or <cite>isinstance</cite> checks against <cite>db.Table</cite>, which
+emulates <cite>Table</cite> behavior but is not a class. <cite>db.Table</cite> exposes the
+<cite>Table</cite> interface, but is a function which allows omission of metadata.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">session_options</span></code> parameter, if provided, is a dict of parameters
+to be passed to the session constructor.  See <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.Session" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a>
+for the standard options.</p>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.10에 추가: </span>The <cite>session_options</cite> parameter was added.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.16에 추가: </span><cite>scopefunc</cite> is now accepted on <cite>session_options</cite>. It allows specifying
+ a custom function which will define the SQLAlchemy session's scoping.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 2.1에 추가: </span>The <cite>metadata</cite> parameter was added. This allows for setting custom
+naming conventions among other, non-trivial things.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 3.0에 추가: </span>The <cite>query_class</cite> parameter was added, to allow customisation
+of the query class, in place of the default of <a class="reference internal" href="#flask_sqlalchemy.BaseQuery" title="flask_sqlalchemy.BaseQuery"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseQuery</span></code></a>.</p>
+<p>The <cite>model_class</cite> parameter was added, which allows a custom model
+class to be used in place of <a class="reference internal" href="#flask_sqlalchemy.Model" title="flask_sqlalchemy.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">버전 3.0으로 변경: </span>Utilise the same query class across <cite>session</cite>, <cite>Model.query</cite> and <cite>Query</cite>.</p>
+</div>
+<dl class="attribute">
+<dt id="flask_sqlalchemy.SQLAlchemy.Query">
+<code class="descname">Query</code><em class="property"> = None</em><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.Query" title="정의 주소">¶</a></dt>
+<dd><p>Default query class used by <code class="xref py py-attr docutils literal notranslate"><span class="pre">Model.query</span></code> and other queries.
+Customize this by passing <code class="docutils literal notranslate"><span class="pre">query_class</span></code> to <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy" title="flask_sqlalchemy.SQLAlchemy"><code class="xref py py-func docutils literal notranslate"><span class="pre">SQLAlchemy()</span></code></a>.
+Defaults to <a class="reference internal" href="#flask_sqlalchemy.BaseQuery" title="flask_sqlalchemy.BaseQuery"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseQuery</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.apply_driver_hacks">
+<code class="descname">apply_driver_hacks</code><span class="sig-paren">(</span><em>app</em>, <em>info</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.apply_driver_hacks" title="정의 주소">¶</a></dt>
+<dd><p>This method is called before engine creation and used to inject
+driver specific hacks into the options.  The <cite>options</cite> parameter is
+a dictionary of keyword arguments that will then be used to call
+the <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine" title="(in SQLAlchemy v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sqlalchemy.create_engine()</span></code></a> function.</p>
+<p>The default implementation provides some saner defaults for things
+like pool sizes for MySQL and sqlite.  Also it injects the setting of
+<cite>SQLALCHEMY_NATIVE_UNICODE</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.create_all">
+<code class="descname">create_all</code><span class="sig-paren">(</span><em>bind='__all__'</em>, <em>app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.create_all" title="정의 주소">¶</a></dt>
+<dd><p>Creates all tables.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">버전 0.12으로 변경: </span>Parameters were added</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.create_scoped_session">
+<code class="descname">create_scoped_session</code><span class="sig-paren">(</span><em>options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.create_scoped_session" title="정의 주소">¶</a></dt>
+<dd><p>Create a <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/contextual.html#sqlalchemy.orm.scoping.scoped_session" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scoped_session</span></code></a>
+on the factory from <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy.create_session" title="flask_sqlalchemy.SQLAlchemy.create_session"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_session()</span></code></a>.</p>
+<p>An extra key <code class="docutils literal notranslate"><span class="pre">'scopefunc'</span></code> can be set on the <code class="docutils literal notranslate"><span class="pre">options</span></code> dict to
+specify a custom scope function.  If it's not provided, Flask's app
+context stack identity is used. This will ensure that sessions are
+created and removed with the request/response cycle, and should be fine
+in most cases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>options</strong> -- dict of keyword arguments passed to session class  in
+<code class="docutils literal notranslate"><span class="pre">create_session</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.create_session">
+<code class="descname">create_session</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.create_session" title="정의 주소">¶</a></dt>
+<dd><p>Create the session factory used by <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy.create_scoped_session" title="flask_sqlalchemy.SQLAlchemy.create_scoped_session"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_scoped_session()</span></code></a>.</p>
+<p>The factory <strong>must</strong> return an object that SQLAlchemy recognizes as a session,
+or registering session events may raise an exception.</p>
+<p>Valid factories include a <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.Session" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a>
+class or a <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.sessionmaker" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sessionmaker</span></code></a>.</p>
+<p>The default implementation creates a <code class="docutils literal notranslate"><span class="pre">sessionmaker</span></code> for <a class="reference internal" href="#flask_sqlalchemy.SignallingSession" title="flask_sqlalchemy.SignallingSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignallingSession</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>options</strong> -- dict of keyword arguments passed to session class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.drop_all">
+<code class="descname">drop_all</code><span class="sig-paren">(</span><em>bind='__all__'</em>, <em>app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.drop_all" title="정의 주소">¶</a></dt>
+<dd><p>Drops all tables.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">버전 0.12으로 변경: </span>Parameters were added</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.SQLAlchemy.engine">
+<code class="descname">engine</code><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.engine" title="정의 주소">¶</a></dt>
+<dd><p>Gives access to the engine.  If the database configuration is bound
+to a specific application (initialized with an application) this will
+always return a database connection.  If however the current application
+is used this might raise a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> if no application is
+active at the moment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.get_app">
+<code class="descname">get_app</code><span class="sig-paren">(</span><em>reference_app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.get_app" title="정의 주소">¶</a></dt>
+<dd><p>Helper method that implements the logic to look up an
+application.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.get_binds">
+<code class="descname">get_binds</code><span class="sig-paren">(</span><em>app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.get_binds" title="정의 주소">¶</a></dt>
+<dd><p>Returns a dictionary with a table-&gt;engine mapping.</p>
+<p>This is suitable for use of sessionmaker(binds=db.get_binds(app)).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.get_engine">
+<code class="descname">get_engine</code><span class="sig-paren">(</span><em>app=None</em>, <em>bind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.get_engine" title="정의 주소">¶</a></dt>
+<dd><p>Returns a specific engine.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.get_tables_for_bind">
+<code class="descname">get_tables_for_bind</code><span class="sig-paren">(</span><em>bind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.get_tables_for_bind" title="정의 주소">¶</a></dt>
+<dd><p>Returns a list of all tables relevant for a bind.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.init_app">
+<code class="descname">init_app</code><span class="sig-paren">(</span><em>app</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.init_app" title="정의 주소">¶</a></dt>
+<dd><p>This callback can be used to initialize an application for the
+use with this database setup.  Never use a database in the context
+of an application not initialized that way or connections will
+leak.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.make_connector">
+<code class="descname">make_connector</code><span class="sig-paren">(</span><em>app=None</em>, <em>bind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.make_connector" title="정의 주소">¶</a></dt>
+<dd><p>Creates the connector for a given state and bind.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.make_declarative_base">
+<code class="descname">make_declarative_base</code><span class="sig-paren">(</span><em>model</em>, <em>metadata=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.make_declarative_base" title="정의 주소">¶</a></dt>
+<dd><p>Creates the declarative base that all models will inherit from.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>model</strong> -- base model class (or a tuple of base classes) to pass
+to <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/api.html#sqlalchemy.ext.declarative.declarative_base" title="(in SQLAlchemy v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">declarative_base()</span></code></a>. Or a class
+returned from <code class="docutils literal notranslate"><span class="pre">declarative_base</span></code>, in which case a new base class
+is not created.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Param:</th><td class="field-body">metadata: <code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code> instance to use, or
+none to use SQLAlchemy's default.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.SQLAlchemy.metadata">
+<code class="descname">metadata</code><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.metadata" title="정의 주소">¶</a></dt>
+<dd><p>The metadata associated with <code class="docutils literal notranslate"><span class="pre">db.Model</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.SQLAlchemy.reflect">
+<code class="descname">reflect</code><span class="sig-paren">(</span><em>bind='__all__'</em>, <em>app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SQLAlchemy.reflect" title="정의 주소">¶</a></dt>
+<dd><p>Reflects tables from the database.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">버전 0.12으로 변경: </span>Parameters were added</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="models">
+<h2>Models<a class="headerlink" href="#models" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="flask_sqlalchemy.Model">
+<em class="property">class </em><code class="descclassname">flask_sqlalchemy.</code><code class="descname">Model</code><a class="headerlink" href="#flask_sqlalchemy.Model" title="정의 주소">¶</a></dt>
+<dd><p>Base class for SQLAlchemy declarative base model.</p>
+<p>To define models, subclass <code class="xref py py-attr docutils literal notranslate"><span class="pre">db.Model</span></code>, not this
+class. To customize <code class="docutils literal notranslate"><span class="pre">db.Model</span></code>, subclass this and pass it as
+<code class="docutils literal notranslate"><span class="pre">model_class</span></code> to <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy" title="flask_sqlalchemy.SQLAlchemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemy</span></code></a>.</p>
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Model.__bind_key__">
+<code class="descname">__bind_key__</code><a class="headerlink" href="#flask_sqlalchemy.Model.__bind_key__" title="정의 주소">¶</a></dt>
+<dd><p>Optionally declares the bind to use. <code class="docutils literal notranslate"><span class="pre">None</span></code> refers to the default
+bind. For more information see <a class="reference internal" href="binds.html#binds"><span class="std std-ref">Multiple Databases with Binds</span></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Model.__tablename__">
+<code class="descname">__tablename__</code><a class="headerlink" href="#flask_sqlalchemy.Model.__tablename__" title="정의 주소">¶</a></dt>
+<dd><p>The name of the table in the database. This is required by SQLAlchemy;
+however, Flask-SQLAlchemy will set it automatically if a model has a
+primary key defined. If the <code class="docutils literal notranslate"><span class="pre">__table__</span></code> or <code class="docutils literal notranslate"><span class="pre">__tablename__</span></code> is set
+explicitly, that will be used instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_sqlalchemy.BaseQuery">
+<em class="property">class </em><code class="descclassname">flask_sqlalchemy.</code><code class="descname">BaseQuery</code><span class="sig-paren">(</span><em>entities</em>, <em>session=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.BaseQuery" title="정의 주소">¶</a></dt>
+<dd><p>SQLAlchemy <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/query.html#sqlalchemy.orm.query.Query" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a> subclass with convenience methods for querying in a web application.</p>
+<p>This is the default <code class="xref py py-attr docutils literal notranslate"><span class="pre">query</span></code> object used for models, and exposed as <a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy.Query" title="flask_sqlalchemy.SQLAlchemy.Query"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Query</span></code></a>.
+Override the query class for an individual model by subclassing this and setting <code class="xref py py-attr docutils literal notranslate"><span class="pre">query_class</span></code>.</p>
+<dl class="method">
+<dt id="flask_sqlalchemy.BaseQuery.first_or_404">
+<code class="descname">first_or_404</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.BaseQuery.first_or_404" title="정의 주소">¶</a></dt>
+<dd><p>Like <code class="xref py py-meth docutils literal notranslate"><span class="pre">first()</span></code> but aborts with 404 if not found instead of returning <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.BaseQuery.get_or_404">
+<code class="descname">get_or_404</code><span class="sig-paren">(</span><em>ident</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.BaseQuery.get_or_404" title="정의 주소">¶</a></dt>
+<dd><p>Like <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> but aborts with 404 if not found instead of returning <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.BaseQuery.paginate">
+<code class="descname">paginate</code><span class="sig-paren">(</span><em>page=None</em>, <em>per_page=None</em>, <em>error_out=True</em>, <em>max_per_page=None</em>, <em>count=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.BaseQuery.paginate" title="정의 주소">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">per_page</span></code> items from page <code class="docutils literal notranslate"><span class="pre">page</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">page</span></code> or <code class="docutils literal notranslate"><span class="pre">per_page</span></code> are <code class="docutils literal notranslate"><span class="pre">None</span></code>, they will be retrieved from
+the request query. If <code class="docutils literal notranslate"><span class="pre">max_per_page</span></code> is specified, <code class="docutils literal notranslate"><span class="pre">per_page</span></code> will
+be limited to that value. If there is no request or they aren't in the
+query, they default to 1 and 20 respectively. If <code class="docutils literal notranslate"><span class="pre">count</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+no query to help determine total page count will be run.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">error_out</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), the following rules will
+cause a 404 response:</p>
+<ul class="simple">
+<li>No items are found and <code class="docutils literal notranslate"><span class="pre">page</span></code> is not 1.</li>
+<li><code class="docutils literal notranslate"><span class="pre">page</span></code> is less than 1, or <code class="docutils literal notranslate"><span class="pre">per_page</span></code> is negative.</li>
+<li><code class="docutils literal notranslate"><span class="pre">page</span></code> or <code class="docutils literal notranslate"><span class="pre">per_page</span></code> are not ints.</li>
+</ul>
+<p>When <code class="docutils literal notranslate"><span class="pre">error_out</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">page</span></code> and <code class="docutils literal notranslate"><span class="pre">per_page</span></code> default to
+1 and 20 respectively.</p>
+<p>Returns a <a class="reference internal" href="#flask_sqlalchemy.Pagination" title="flask_sqlalchemy.Pagination"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pagination</span></code></a> object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sessions">
+<h2>Sessions<a class="headerlink" href="#sessions" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="flask_sqlalchemy.SignallingSession">
+<em class="property">class </em><code class="descclassname">flask_sqlalchemy.</code><code class="descname">SignallingSession</code><span class="sig-paren">(</span><em>db</em>, <em>autocommit=False</em>, <em>autoflush=True</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SignallingSession" title="정의 주소">¶</a></dt>
+<dd><p>The signalling session is the default session that Flask-SQLAlchemy
+uses.  It extends the default session system with bind selection and
+modification tracking.</p>
+<p>If you want to use a different session you can override the
+<a class="reference internal" href="#flask_sqlalchemy.SQLAlchemy.create_session" title="flask_sqlalchemy.SQLAlchemy.create_session"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SQLAlchemy.create_session()</span></code></a> function.</p>
+<div class="versionadded">
+<p><span class="versionmodified">버전 2.0에 추가.</span></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 2.1에 추가: </span>The <cite>binds</cite> option was added, which allows a session to be joined
+to an external transaction.</p>
+</div>
+<dl class="method">
+<dt id="flask_sqlalchemy.SignallingSession.get_bind">
+<code class="descname">get_bind</code><span class="sig-paren">(</span><em>mapper=None</em>, <em>clause=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.SignallingSession.get_bind" title="정의 주소">¶</a></dt>
+<dd><p>Return a &quot;bind&quot; to which this <code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code> is bound.</p>
+<p>The &quot;bind&quot; is usually an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code>,
+except in the case where the <code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code> has been
+explicitly bound directly to a <code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code>.</p>
+<p>For a multiply-bound or unbound <code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code>, the
+<code class="docutils literal notranslate"><span class="pre">mapper</span></code> or <code class="docutils literal notranslate"><span class="pre">clause</span></code> arguments are used to determine the
+appropriate bind to return.</p>
+<p>Note that the &quot;mapper&quot; argument is usually present
+when <code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.get_bind()</span></code> is called via an ORM
+operation such as a <code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.query()</span></code>, each
+individual INSERT/UPDATE/DELETE operation within a
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.flush()</span></code>, call, etc.</p>
+<p>The order of resolution is:</p>
+<ol class="arabic simple">
+<li>if mapper given and session.binds is present,
+locate a bind based first on the mapper in use, then
+on the mapped class in use, then on any base classes that are
+present in the <code class="docutils literal notranslate"><span class="pre">__mro__</span></code> of the mapped class, from more specific
+superclasses to more general.</li>
+<li>if clause given and session.binds is present,
+locate a bind based on <code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code> objects
+found in the given clause present in session.binds.</li>
+<li>if session.bind is present, return that.</li>
+<li>if clause given, attempt to return a bind
+linked to the <code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code> ultimately
+associated with the clause.</li>
+<li>if mapper given, attempt to return a bind
+linked to the <code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code> ultimately
+associated with the <code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code> or other
+selectable to which the mapper is mapped.</li>
+<li>No bind can be found, <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/exceptions.html#sqlalchemy.exc.UnboundExecutionError" title="(in SQLAlchemy v1.3)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnboundExecutionError</span></code></a>
+is raised.</li>
+</ol>
+<p>Note that the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.get_bind()</span></code> method can be overridden on
+a user-defined subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code> to provide any kind
+of bind resolution scheme.  See the example at
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/persistence_techniques.html#session-custom-partitioning" title="(in SQLAlchemy v1.3)"><span>Custom Vertical Partitioning</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mapper</strong> -- Optional <code class="xref py py-func docutils literal notranslate"><span class="pre">mapper()</span></code> mapped class or instance of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapper</span></code>.   The bind can be derived from a <code class="xref py py-class docutils literal notranslate"><span class="pre">Mapper</span></code>
+first by consulting the &quot;binds&quot; map associated with this
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code>, and secondly by consulting the <code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code>
+associated with the <code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code> to which the <code class="xref py py-class docutils literal notranslate"><span class="pre">Mapper</span></code>
+is mapped for a bind.</li>
+<li><strong>clause</strong> -- A <code class="xref py py-class docutils literal notranslate"><span class="pre">ClauseElement</span></code> (i.e. <code class="xref py py-func docutils literal notranslate"><span class="pre">select()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">text()</span></code>,
+etc.).  If the <code class="docutils literal notranslate"><span class="pre">mapper</span></code> argument is not present or could not
+produce a bind, the given expression construct will be searched
+for a bound element, typically a <code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code> associated with
+bound <code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/persistence_techniques.html#session-partitioning" title="(in SQLAlchemy v1.3)"><span>Partitioning Strategies (e.g. multiple database backends per Session)</span></a></p>
+<p><a href="#id1"><span class="problematic" id="id2">:paramref:`.Session.binds`</span></a></p>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.bind_mapper()</span></code></p>
+<p class="last"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Session.bind_table()</span></code></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="flask_sqlalchemy.Pagination">
+<em class="property">class </em><code class="descclassname">flask_sqlalchemy.</code><code class="descname">Pagination</code><span class="sig-paren">(</span><em>query</em>, <em>page</em>, <em>per_page</em>, <em>total</em>, <em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.Pagination" title="정의 주소">¶</a></dt>
+<dd><p>Internal helper class returned by <a class="reference internal" href="#flask_sqlalchemy.BaseQuery.paginate" title="flask_sqlalchemy.BaseQuery.paginate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BaseQuery.paginate()</span></code></a>.  You
+can also construct it from any other SQLAlchemy query object if you are
+working with other libraries.  Additionally it is possible to pass <cite>None</cite>
+as query object in which case the <a class="reference internal" href="#flask_sqlalchemy.Pagination.prev" title="flask_sqlalchemy.Pagination.prev"><code class="xref py py-meth docutils literal notranslate"><span class="pre">prev()</span></code></a> and <a class="reference internal" href="#flask_sqlalchemy.Pagination.next" title="flask_sqlalchemy.Pagination.next"><code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code></a> will
+no longer work.</p>
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.has_next">
+<code class="descname">has_next</code><a class="headerlink" href="#flask_sqlalchemy.Pagination.has_next" title="정의 주소">¶</a></dt>
+<dd><p>True if a next page exists.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.has_prev">
+<code class="descname">has_prev</code><a class="headerlink" href="#flask_sqlalchemy.Pagination.has_prev" title="정의 주소">¶</a></dt>
+<dd><p>True if a previous page exists</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.items">
+<code class="descname">items</code><em class="property"> = None</em><a class="headerlink" href="#flask_sqlalchemy.Pagination.items" title="정의 주소">¶</a></dt>
+<dd><p>the items for the current page</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.Pagination.iter_pages">
+<code class="descname">iter_pages</code><span class="sig-paren">(</span><em>left_edge=2</em>, <em>left_current=2</em>, <em>right_current=5</em>, <em>right_edge=2</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.Pagination.iter_pages" title="정의 주소">¶</a></dt>
+<dd><p>Iterates over the page numbers in the pagination.  The four
+parameters control the thresholds how many numbers should be produced
+from the sides.  Skipped page numbers are represented as <cite>None</cite>.
+This is how you could render such a pagination in the templates:</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">render_pagination</span><span class="o">(</span><span class="nv">pagination</span><span class="o">,</span> <span class="nv">endpoint</span><span class="o">)</span> <span class="cp">%}</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">pagination</span><span class="p">&gt;</span>
+  <span class="cp">{%</span>- <span class="k">for</span> <span class="nv">page</span> <span class="k">in</span> <span class="nv">pagination.iter_pages</span><span class="o">()</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">if</span> <span class="nv">page</span> <span class="cp">%}</span>
+      <span class="cp">{%</span> <span class="k">if</span> <span class="nv">page</span> <span class="p">!</span><span class="o">=</span> <span class="nv">pagination.page</span> <span class="cp">%}</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="nv">endpoint</span><span class="o">,</span> <span class="nv">page</span><span class="o">=</span><span class="nv">page</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span><span class="cp">{{</span> <span class="nv">page</span> <span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+        <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span><span class="cp">{{</span> <span class="nv">page</span> <span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
+      <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">ellipsis</span><span class="p">&gt;</span>…<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+  <span class="cp">{%</span>- <span class="k">endfor</span> <span class="cp">%}</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.Pagination.next">
+<code class="descname">next</code><span class="sig-paren">(</span><em>error_out=False</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.Pagination.next" title="정의 주소">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#flask_sqlalchemy.Pagination" title="flask_sqlalchemy.Pagination"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pagination</span></code></a> object for the next page.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.next_num">
+<code class="descname">next_num</code><a class="headerlink" href="#flask_sqlalchemy.Pagination.next_num" title="정의 주소">¶</a></dt>
+<dd><p>Number of the next page</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.page">
+<code class="descname">page</code><em class="property"> = None</em><a class="headerlink" href="#flask_sqlalchemy.Pagination.page" title="정의 주소">¶</a></dt>
+<dd><p>the current page number (1 indexed)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.pages">
+<code class="descname">pages</code><a class="headerlink" href="#flask_sqlalchemy.Pagination.pages" title="정의 주소">¶</a></dt>
+<dd><p>The total number of pages</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.per_page">
+<code class="descname">per_page</code><em class="property"> = None</em><a class="headerlink" href="#flask_sqlalchemy.Pagination.per_page" title="정의 주소">¶</a></dt>
+<dd><p>the number of items to be displayed on a page.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flask_sqlalchemy.Pagination.prev">
+<code class="descname">prev</code><span class="sig-paren">(</span><em>error_out=False</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.Pagination.prev" title="정의 주소">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#flask_sqlalchemy.Pagination" title="flask_sqlalchemy.Pagination"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pagination</span></code></a> object for the previous page.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.prev_num">
+<code class="descname">prev_num</code><a class="headerlink" href="#flask_sqlalchemy.Pagination.prev_num" title="정의 주소">¶</a></dt>
+<dd><p>Number of the previous page.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.query">
+<code class="descname">query</code><em class="property"> = None</em><a class="headerlink" href="#flask_sqlalchemy.Pagination.query" title="정의 주소">¶</a></dt>
+<dd><p>the unlimited query object that was used to create this
+pagination object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_sqlalchemy.Pagination.total">
+<code class="descname">total</code><em class="property"> = None</em><a class="headerlink" href="#flask_sqlalchemy.Pagination.total" title="정의 주소">¶</a></dt>
+<dd><p>the total number of items matching the query</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_sqlalchemy.get_debug_queries">
+<code class="descclassname">flask_sqlalchemy.</code><code class="descname">get_debug_queries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_sqlalchemy.get_debug_queries" title="정의 주소">¶</a></dt>
+<dd><p>In debug mode Flask-SQLAlchemy will log all the SQL queries sent
+to the database.  This information is available until the end of request
+which makes it possible to easily ensure that the SQL generated is the
+one expected on errors or in unittesting.  If you don't want to enable
+the DEBUG mode for your unittests you can also enable the query
+recording by setting the <code class="docutils literal notranslate"><span class="pre">'SQLALCHEMY_RECORD_QUERIES'</span></code> config variable
+to <cite>True</cite>.  This is automatically enabled if Flask is in testing mode.</p>
+<p>The value returned will be a list of named tuples with the following
+attributes:</p>
+<dl class="docutils">
+<dt><cite>statement</cite></dt>
+<dd>The SQL statement issued</dd>
+<dt><cite>parameters</cite></dt>
+<dd>The parameters for the SQL statement</dd>
+<dt><cite>start_time</cite> / <cite>end_time</cite></dt>
+<dd>Time the query started / the results arrived.  Please keep in mind
+that the timer function used depends on your platform. These
+values are only useful for sorting or comparing.  They do not
+necessarily represent an absolute timestamp.</dd>
+<dt><cite>duration</cite></dt>
+<dd>Time the query took in seconds</dd>
+<dt><cite>context</cite></dt>
+<dd>A string giving a rough estimation of where in your application
+query was issued.  The exact format is undefined so don't try
+to reconstruct filename or function name.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/flask-sqlalchemy-logo.png" alt="Logo"
+    style="margin-left: -10px"/>
+</a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#sessions">Sessions</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="customizing.html" title="이전 장">Customizing</a></li>
+      <li>Next: <a href="changelog.html" title="다음 장">Changelog</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2010 - 2019, Armin Ronacher.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>

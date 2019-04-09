@@ -1,0 +1,293 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Configuration &#8212; Flask-SQLAlchemy 2.3.2.dev documentation</title>
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Declaring Models" href="models.html" />
+    <link rel="prev" title="컨텍스트에 대한 소개" href="contexts.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>탐색</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="전체 색인"
+             accesskey="I">색인</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 모듈 목록"
+             >모듈</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="Declaring Models"
+             accesskey="N">다음</a> |</li>
+        <li class="right" >
+          <a href="contexts.html" title="컨텍스트에 대한 소개"
+             accesskey="P">이전</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Flask-SQLAlchemy 2.3.2.dev documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="제목 주소">¶</a></h1>
+<p>The following configuration values exist for Flask-SQLAlchemy.
+Flask-SQLAlchemy loads these values from your main Flask config which can
+be populated in various ways.  Note that some of those cannot be modified
+after the engine was created so make sure to configure as early as
+possible and to not modify them at runtime.</p>
+<div class="section" id="configuration-keys">
+<h2>Configuration Keys<a class="headerlink" href="#configuration-keys" title="제목 주소">¶</a></h2>
+<p>A list of configuration keys currently understood by the extension:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_DATABASE_URI</span></code></td>
+<td><p class="first">The database URI that should be used for
+the connection.  Examples:</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">sqlite:////tmp/test.db</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">mysql://username:password&#64;server/db</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_BINDS</span></code></td>
+<td>A dictionary that maps bind keys to
+SQLAlchemy connection URIs.  For more
+information about binds see <a class="reference internal" href="binds.html#binds"><span class="std std-ref">Multiple Databases with Binds</span></a>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_ECHO</span></code></td>
+<td>If set to <cite>True</cite> SQLAlchemy will log all
+the statements issued to stderr which can
+be useful for debugging.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_RECORD_QUERIES</span></code></td>
+<td>Can be used to explicitly disable or
+enable query recording.  Query recording
+automatically happens in debug or testing
+mode.  See <code class="xref py py-func docutils literal notranslate"><span class="pre">get_debug_queries()</span></code> for
+more information.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_NATIVE_UNICODE</span></code></td>
+<td>Can be used to explicitly disable native
+unicode support.  This is required for
+some database adapters (like PostgreSQL
+on some Ubuntu versions) when used with
+improper database defaults that specify
+encoding-less databases.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_POOL_SIZE</span></code></td>
+<td>The size of the database pool.  Defaults
+to the engine's default (usually 5)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_POOL_TIMEOUT</span></code></td>
+<td>Specifies the connection timeout in seconds
+for the pool.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_POOL_RECYCLE</span></code></td>
+<td>Number of seconds after which a
+connection is automatically recycled.
+This is required for MySQL, which removes
+connections after 8 hours idle by
+default.  Note that Flask-SQLAlchemy
+automatically sets this to 2 hours if
+MySQL is used. Some backends may use a
+different default timeout value. For more
+information about timeouts see
+<a class="reference internal" href="#timeouts"><span class="std std-ref">Timeouts</span></a>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_MAX_OVERFLOW</span></code></td>
+<td>Controls the number of connections that
+can be created after the pool reached
+its maximum size.  When those additional
+connections are returned to the pool,
+they are disconnected and discarded.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_TRACK_MODIFICATIONS</span></code></td>
+<td>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, Flask-SQLAlchemy will
+track modifications of objects and emit
+signals.  The default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which
+enables tracking but issues a warning
+that it will be disabled by default in
+the future.  This requires extra memory
+and should be disabled if not needed.</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.8에 추가: </span>The <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_NATIVE_UNICODE</span></code>, <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_POOL_SIZE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_POOL_TIMEOUT</span></code> and <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_POOL_RECYCLE</span></code>
+configuration keys were added.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.12에 추가: </span>The <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_BINDS</span></code> configuration key was added.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.17에 추가: </span>The <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_MAX_OVERFLOW</span></code> configuration key was added.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 2.0에 추가: </span>The <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_TRACK_MODIFICATIONS</span></code> configuration key was added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">버전 2.1으로 변경: </span><code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_TRACK_MODIFICATIONS</span></code> will warn if unset.</p>
+</div>
+</div>
+<div class="section" id="connection-uri-format">
+<h2>Connection URI Format<a class="headerlink" href="#connection-uri-format" title="제목 주소">¶</a></h2>
+<p>For a complete list of connection URIs head over to the SQLAlchemy
+documentation under (<a class="reference external" href="http://www.sqlalchemy.org/docs/core/engines.html">Supported Databases</a>).  This here shows
+some common connection strings.</p>
+<p>SQLAlchemy indicates the source of an Engine as a URI combined with
+optional keyword arguments to specify options for the Engine. The form of
+the URI is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dialect</span><span class="o">+</span><span class="n">driver</span><span class="p">:</span><span class="o">//</span><span class="n">username</span><span class="p">:</span><span class="n">password</span><span class="nd">@host</span><span class="p">:</span><span class="n">port</span><span class="o">/</span><span class="n">database</span>
+</pre></div>
+</div>
+<p>Many of the parts in the string are optional.  If no driver is specified
+the default one is selected (make sure to <em>not</em> include the <code class="docutils literal notranslate"><span class="pre">+</span></code> in that
+case).</p>
+<p>Postgres:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="p">:</span><span class="o">//</span><span class="n">scott</span><span class="p">:</span><span class="n">tiger</span><span class="nd">@localhost</span><span class="o">/</span><span class="n">mydatabase</span>
+</pre></div>
+</div>
+<p>MySQL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="p">:</span><span class="o">//</span><span class="n">scott</span><span class="p">:</span><span class="n">tiger</span><span class="nd">@localhost</span><span class="o">/</span><span class="n">mydatabase</span>
+</pre></div>
+</div>
+<p>Oracle:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">oracle</span><span class="p">:</span><span class="o">//</span><span class="n">scott</span><span class="p">:</span><span class="n">tiger</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">1521</span><span class="o">/</span><span class="n">sidname</span>
+</pre></div>
+</div>
+<p>SQLite (note that platform path conventions apply):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Unix/Mac (note the four leading slashes)</span>
+<span class="n">sqlite</span><span class="p">:</span><span class="o">////</span><span class="n">absolute</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">foo</span><span class="o">.</span><span class="n">db</span>
+<span class="c1">#Windows (note 3 leading forward slashes and backslash escapes)</span>
+<span class="n">sqlite</span><span class="p">:</span><span class="o">///</span><span class="n">C</span><span class="p">:</span>\\<span class="n">absolute</span>\\<span class="n">path</span>\\<span class="n">to</span>\\<span class="n">foo</span><span class="o">.</span><span class="n">db</span>
+<span class="c1">#Windows (alternative using raw string)</span>
+<span class="sa">r</span><span class="s1">&#39;sqlite:///C:\absolute\path\to\foo.db&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-custom-metadata-and-naming-conventions">
+<h2>Using custom MetaData and naming conventions<a class="headerlink" href="#using-custom-metadata-and-naming-conventions" title="제목 주소">¶</a></h2>
+<p>You can optionally construct the <code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemy</span></code> object with a custom
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/metadata.html#sqlalchemy.schema.MetaData" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code></a> object.
+This allows you to, among other things,
+specify a <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/constraints.html#constraint-naming-conventions">custom constraint naming convention</a>
+in conjunction with SQLAlchemy 0.9.2 or higher.
+Doing so is important for dealing with database migrations (for instance using
+<a class="reference external" href="http://alembic.zzzcomputing.com">alembic</a> as stated
+<a class="reference external" href="http://alembic.zzzcomputing.com/en/latest/naming.html">here</a>. Here's an
+example, as suggested by the SQLAlchemy docs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">MetaData</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="k">import</span> <span class="n">SQLAlchemy</span>
+
+<span class="n">convention</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ix&quot;</span><span class="p">:</span> <span class="s1">&#39;ix_</span><span class="si">%(column_0_label)s</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;uq&quot;</span><span class="p">:</span> <span class="s2">&quot;uq_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ck&quot;</span><span class="p">:</span> <span class="s2">&quot;ck_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(constraint_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fk&quot;</span><span class="p">:</span> <span class="s2">&quot;fk_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">_</span><span class="si">%(referred_table_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pk&quot;</span><span class="p">:</span> <span class="s2">&quot;pk_</span><span class="si">%(table_name)s</span><span class="s2">&quot;</span>
+<span class="p">}</span>
+
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">naming_convention</span><span class="o">=</span><span class="n">convention</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more info about <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/metadata.html#sqlalchemy.schema.MetaData" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code></a>,
+<a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/metadata.html">check out the official docs on it</a>.</p>
+</div>
+<div class="section" id="timeouts">
+<span id="id1"></span><h2>Timeouts<a class="headerlink" href="#timeouts" title="제목 주소">¶</a></h2>
+<p>Certain database backends may impose different inactive connection timeouts,
+which interferes with Flask-SQLAlchemy's connection pooling.</p>
+<p>By default, MariaDB is configured to have a 600 second timeout. This often
+surfaces hard to debug, production environment only exceptions like <code class="docutils literal notranslate"><span class="pre">2013:</span> <span class="pre">Lost</span> <span class="pre">connection</span> <span class="pre">to</span> <span class="pre">MySQL</span> <span class="pre">server</span> <span class="pre">during</span> <span class="pre">query</span></code>.</p>
+<p>If you are using a backend (or a pre-configured database-as-a-service) with a
+lower connection timeout, it is recommended that you set
+<cite>SQLALCHEMY_POOL_RECYCLE</cite> to a value less than your backend's timeout.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/flask-sqlalchemy-logo.png" alt="Logo"
+    style="margin-left: -10px"/>
+</a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#configuration-keys">Configuration Keys</a></li>
+<li><a class="reference internal" href="#connection-uri-format">Connection URI Format</a></li>
+<li><a class="reference internal" href="#using-custom-metadata-and-naming-conventions">Using custom MetaData and naming conventions</a></li>
+<li><a class="reference internal" href="#timeouts">Timeouts</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="contexts.html" title="이전 장">컨텍스트에 대한 소개</a></li>
+      <li>Next: <a href="models.html" title="다음 장">Declaring Models</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/config.rst.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2010 - 2019, Armin Ronacher.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>

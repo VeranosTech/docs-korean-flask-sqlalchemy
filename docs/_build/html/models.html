@@ -1,0 +1,288 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Declaring Models &#8212; Flask-SQLAlchemy 2.3.2.dev documentation</title>
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Select, Insert, Delete" href="queries.html" />
+    <link rel="prev" title="Configuration" href="config.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>탐색</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="전체 색인"
+             accesskey="I">색인</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 모듈 목록"
+             >모듈</a> |</li>
+        <li class="right" >
+          <a href="queries.html" title="Select, Insert, Delete"
+             accesskey="N">다음</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="Configuration"
+             accesskey="P">이전</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Flask-SQLAlchemy 2.3.2.dev documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="declaring-models">
+<span id="models"></span><h1>Declaring Models<a class="headerlink" href="#declaring-models" title="제목 주소">¶</a></h1>
+<p>Generally Flask-SQLAlchemy behaves like a properly configured declarative
+base from the <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/api.html#module-sqlalchemy.ext.declarative" title="(in SQLAlchemy v1.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">declarative</span></code></a> extension.  As such we
+recommend reading the SQLAlchemy docs for a full reference.  However the
+most common use cases are also documented here.</p>
+<p>Things to keep in mind:</p>
+<ul class="simple">
+<li>The baseclass for all your models is called <code class="docutils literal notranslate"><span class="pre">db.Model</span></code>.  It's stored
+on the SQLAlchemy instance you have to create.  See <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">초간단 안내</span></a>
+for more details.</li>
+<li>Some parts that are required in SQLAlchemy are optional in
+Flask-SQLAlchemy.  For instance the table name is automatically set
+for you unless overridden.  It's derived from the class name converted
+to lowercase and with “CamelCase” converted to “camel_case”.  To override
+the table name, set the <code class="docutils literal notranslate"><span class="pre">__tablename__</span></code> class attribute.</li>
+</ul>
+<div class="section" id="simple-example">
+<h2>Simple Example<a class="headerlink" href="#simple-example" title="제목 주소">¶</a></h2>
+<p>A very simple example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;User </span><span class="si">%r</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+</pre></div>
+</div>
+<p>Use <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/metadata.html#sqlalchemy.schema.Column" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Column</span></code></a> to define a column.  The name of the
+column is the name you assign it to.  If you want to use a different name
+in the table you can provide an optional first argument which is a string
+with the desired column name.  Primary keys are marked with
+<code class="docutils literal notranslate"><span class="pre">primary_key=True</span></code>.  Multiple keys can be marked as primary keys in
+which case they become a compound primary key.</p>
+<p>The types of the column are the first argument to
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/metadata.html#sqlalchemy.schema.Column" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Column</span></code></a>.  You can either provide them directly
+or call them to further specify them (like providing a length).  The
+following types are the most common:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Integer" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Integer</span></code></a></td>
+<td>an integer</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.String" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">String(size)</span></code></a></td>
+<td>a string with a maximum length
+(optional in some databases, e.g.
+PostgreSQL)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Text" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a></td>
+<td>some longer unicode text</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.DateTime" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTime</span></code></a></td>
+<td>date and time expressed as Python
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> object.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Float" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Float</span></code></a></td>
+<td>stores floating point values</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Boolean" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Boolean</span></code></a></td>
+<td>stores a boolean value</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.PickleType" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PickleType</span></code></a></td>
+<td>stores a pickled Python object</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.LargeBinary" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LargeBinary</span></code></a></td>
+<td>stores large arbitrary binary data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="one-to-many-relationships">
+<h2>One-to-Many Relationships<a class="headerlink" href="#one-to-many-relationships" title="제목 주소">¶</a></h2>
+<p>The most common relationships are one-to-many relationships.  Because
+relationships are declared before they are established you can use strings
+to refer to classes that are not created yet (for instance if <code class="docutils literal notranslate"><span class="pre">Person</span></code>
+defines a relationship to <code class="docutils literal notranslate"><span class="pre">Address</span></code> which is declared later in the file).</p>
+<p>Relationships are expressed with the <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/relationship_api.html#sqlalchemy.orm.relationship" title="(in SQLAlchemy v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">relationship()</span></code></a>
+function.  However the foreign key has to be separately declared with the
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/constraints.html#sqlalchemy.schema.ForeignKey" title="(in SQLAlchemy v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">addresses</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;person&#39;</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Address</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">person_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;person.id&#39;</span><span class="p">),</span>
+        <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>What does <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/relationship_api.html#sqlalchemy.orm.relationship" title="(in SQLAlchemy v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">db.relationship()</span></code></a> do?
+That function returns a new property that can do multiple things.
+In this case we told it to point to the <code class="docutils literal notranslate"><span class="pre">Address</span></code> class and load
+multiple of those.  How does it know that this will return more than
+one address?  Because SQLAlchemy guesses a useful default from your
+declaration.  If you would want to have a one-to-one relationship you
+can pass <code class="docutils literal notranslate"><span class="pre">uselist=False</span></code> to <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/relationship_api.html#sqlalchemy.orm.relationship" title="(in SQLAlchemy v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">relationship()</span></code></a>.</p>
+<p>Since a person with no name or an email address with no address associated
+makes no sense, <code class="docutils literal notranslate"><span class="pre">nullable=False</span></code> tells SQLAlchemy to create the column
+as <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code>. This is implied for primary key columns, but it's a good
+idea to specify it for all other columns to make it clear to other people
+working on your code that you did actually want a nullable column and did
+not just forget to add it.</p>
+<p>So what do <code class="docutils literal notranslate"><span class="pre">backref</span></code> and <code class="docutils literal notranslate"><span class="pre">lazy</span></code> mean?  <code class="docutils literal notranslate"><span class="pre">backref</span></code> is a simple way to also
+declare a new property on the <code class="docutils literal notranslate"><span class="pre">Address</span></code> class.  You can then also use
+<code class="docutils literal notranslate"><span class="pre">my_address.person</span></code> to get to the person at that address.  <code class="docutils literal notranslate"><span class="pre">lazy</span></code> defines
+when SQLAlchemy will load the data from the database:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">'select'</span></code> / <code class="docutils literal notranslate"><span class="pre">True</span></code> (which is the default, but explicit is better
+than implicit) means that SQLAlchemy will load the data as necessary
+in one go using a standard <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement.</li>
+<li><code class="docutils literal notranslate"><span class="pre">'joined'</span></code> / <code class="docutils literal notranslate"><span class="pre">False</span></code> tells SQLAlchemy to load the relationship in
+the same query as the parent using a <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> statement.</li>
+<li><code class="docutils literal notranslate"><span class="pre">'subquery'</span></code> works like <code class="docutils literal notranslate"><span class="pre">'joined'</span></code> but instead SQLAlchemy will
+use a subquery.</li>
+<li><code class="docutils literal notranslate"><span class="pre">'dynamic'</span></code> is special and can be useful if you have many items
+and always want to apply additional SQL filters to them.
+Instead of loading the items SQLAlchemy will return another query
+object which you can further refine before loading the items.
+Note that this cannot be turned into a different loading strategy
+when querying so it's often a good idea to avoid using this in
+favor of <code class="docutils literal notranslate"><span class="pre">lazy=True</span></code>.  A query object equivalent to a dynamic
+<code class="docutils literal notranslate"><span class="pre">user.addresses</span></code> relationship can be created using
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/query.html#sqlalchemy.orm.query.Query.with_parent" title="(in SQLAlchemy v1.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Address.query.with_parent(user)</span></code></a>
+while still being able to use
+lazy or eager loading on the relationship itself as necessary.</li>
+</ul>
+<p>How do you define the lazy status for backrefs?  By using the
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/relationship_api.html#sqlalchemy.orm.backref" title="(in SQLAlchemy v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">backref()</span></code></a> function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">addresses</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="s1">&#39;select&#39;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="s1">&#39;joined&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="many-to-many-relationships">
+<h2>Many-to-Many Relationships<a class="headerlink" href="#many-to-many-relationships" title="제목 주소">¶</a></h2>
+<p>If you want to use many-to-many relationships you will need to define a
+helper table that is used for the relationship.  For this helper table it
+is strongly recommended to <em>not</em> use a model but an actual table:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tags</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">,</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;tag_id&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;tag.id&#39;</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;page_id&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;page.id&#39;</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;Tag&#39;</span><span class="p">,</span> <span class="n">secondary</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="s1">&#39;subquery&#39;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we configured <code class="docutils literal notranslate"><span class="pre">Page.tags</span></code> to be loaded immediately after loading
+a Page, but using a separate query.  This always results in two
+queries when retrieving a Page, but when querying for multiple pages
+you will not get additional queries.</p>
+<p>The list of pages for a tag on the other hand is something that's
+rarely needed. For example, you won't need that list when retrieving
+the tags for a specific page.  Therefore, the backref is set to be
+lazy-loaded so that accessing it for the first time will trigger a
+query to get the list of pages for that tag.  If you need to apply
+further query options on that list, you could either switch to the
+<code class="docutils literal notranslate"><span class="pre">'dynamic'</span></code> strategy - with the drawbacks mentioned above - or get
+a query object using
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/orm/query.html#sqlalchemy.orm.query.Query.with_parent" title="(in SQLAlchemy v1.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Page.query.with_parent(some_tag)</span></code></a>
+and then use it exactly as you would with the query object from a dynamic
+relationship.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/flask-sqlalchemy-logo.png" alt="Logo"
+    style="margin-left: -10px"/>
+</a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Declaring Models</a><ul>
+<li><a class="reference internal" href="#simple-example">Simple Example</a></li>
+<li><a class="reference internal" href="#one-to-many-relationships">One-to-Many Relationships</a></li>
+<li><a class="reference internal" href="#many-to-many-relationships">Many-to-Many Relationships</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="config.html" title="이전 장">Configuration</a></li>
+      <li>Next: <a href="queries.html" title="다음 장">Select, Insert, Delete</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/models.rst.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2010 - 2019, Armin Ronacher.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>

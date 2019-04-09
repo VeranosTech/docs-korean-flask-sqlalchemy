@@ -1,0 +1,128 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Signalling Support &#8212; Flask-SQLAlchemy 2.3.2.dev documentation</title>
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Customizing" href="customizing.html" />
+    <link rel="prev" title="Multiple Databases with Binds" href="binds.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>탐색</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="전체 색인"
+             accesskey="I">색인</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 모듈 목록"
+             >모듈</a> |</li>
+        <li class="right" >
+          <a href="customizing.html" title="Customizing"
+             accesskey="N">다음</a> |</li>
+        <li class="right" >
+          <a href="binds.html" title="Multiple Databases with Binds"
+             accesskey="P">이전</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Flask-SQLAlchemy 2.3.2.dev documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="signalling-support">
+<h1>Signalling Support<a class="headerlink" href="#signalling-support" title="제목 주소">¶</a></h1>
+<p>Connect to the following signals to get notified before and after changes are committed to the database.
+These changes are only tracked if <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_TRACK_MODIFICATIONS</span></code> is enabled in the config.</p>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.10에 추가.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">버전 2.1으로 변경: </span><code class="docutils literal notranslate"><span class="pre">before_models_committed</span></code> is triggered correctly.</p>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified">버전 2.1 폐지: </span>This will be disabled by default in a future version.</p>
+</div>
+<dl class="data">
+<dt id="models_committed">
+<code class="descname">models_committed</code><a class="headerlink" href="#models_committed" title="정의 주소">¶</a></dt>
+<dd><p>This signal is sent when changed models were committed to the database.</p>
+<p>The sender is the application that emitted the changes.
+The receiver is passed the <code class="docutils literal notranslate"><span class="pre">changes</span></code> parameter with a list of tuples in the form <code class="docutils literal notranslate"><span class="pre">(model</span> <span class="pre">instance,</span> <span class="pre">operation)</span></code>.</p>
+<p>The operation is one of <code class="docutils literal notranslate"><span class="pre">'insert'</span></code>, <code class="docutils literal notranslate"><span class="pre">'update'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'delete'</span></code>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="before_models_committed">
+<code class="descname">before_models_committed</code><a class="headerlink" href="#before_models_committed" title="정의 주소">¶</a></dt>
+<dd><p>This signal works exactly like <a class="reference internal" href="#models_committed" title="models_committed"><code class="xref py py-data docutils literal notranslate"><span class="pre">models_committed</span></code></a> but is emitted before the commit takes place.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo"><a href="index.html">
+  <img class="logo" src="_static/flask-sqlalchemy-logo.png" alt="Logo"
+    style="margin-left: -10px"/>
+</a></p><h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="binds.html" title="이전 장">Multiple Databases with Binds</a></li>
+      <li>Next: <a href="customizing.html" title="다음 장">Customizing</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>현재 문서</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/signals.rst.txt"
+            rel="nofollow">소스 코드를 보려면</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>빠른 검색</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="바로 가기" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2010 - 2019, Armin Ronacher.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>
