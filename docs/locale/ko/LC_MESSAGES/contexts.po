@@ -70,13 +70,15 @@ msgstr ""
 "이를 위해 애플리케이션 컨텍스트를 만들어야 한다. "
 "만약 플라스크 뷰 함수나 명령줄 명령으로 작업하는 경우에는 컨텍스트가 자동으로 "
 "만들어진다. 하지만 대화형 셸 내에서 작업할 때는 사용자가 직접 컨텍스트를 "
-"만들어야 한다. (`애플리케이션 컨텍스트 생성 <http://flask.pocoo.org/docs/appcontext/#creating-an-application-context>`_ 참조)
+"만들어야 한다. (`애플리케이션 컨텍스트 생성 <https://veranostech.github.io/docs-korean-flask/docs/_build/html/appcontext.html>`_ 참조)
 
 #: ../../contexts.rst:41
 msgid ""
 "If you try to perform database operations outside an application context,"
 " you will see the following error:"
 msgstr ""
+"만약 애플리케이션 컨텍스트 외부에서 데이터베이스 작업을 하고 싶다면 "
+"다음 에러가 발생한다.:"
 
 #: ../../contexts.rst:44
 msgid ""
@@ -86,15 +88,17 @@ msgstr ""
 
 #: ../../contexts.rst:47
 msgid "In a nutshell, do something like this:"
-msgstr ""
+msgstr "요약하자면 다음처럼 하면된다.:"
 
 #: ../../contexts.rst:53
 msgid "Alternatively, use the with-statement to take care of setup and teardown::"
-msgstr ""
+msgstr "아니면 with-문으로 setup와 teardown을 처리할 수도 있다."
 
 #: ../../contexts.rst:61
 msgid ""
 "Some functions inside Flask-SQLAlchemy also accept optionally the "
 "application to operate on:"
 msgstr ""
+"플라스크-SQL알케미 내의 일부 함수는 작업할 애플리케이션을 부가적으로 인수로 받기도 한다.:"
+
 
