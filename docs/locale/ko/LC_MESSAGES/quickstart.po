@@ -5,7 +5,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
 #, fuzzy
-msgid ""
+lmsgid ""
 msgstr ""
 "Project-Id-Version: Flask-SQLAlchemy 2.3\n"
 "Report-Msgid-Bugs-To: \n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: ../../quickstart.rst:48
 msgid "Boom, and there is your database.  Now to create some users::"
-msgstr "짠, 이제 데이터베이스가 생성됬다. 이제 사용자를 몇 명 생성해보자::"
+msgstr "짠, 이제 데이터베이스가 생성됐다. 이제 사용자를 몇 명 생성해보자::"
 
 #: ../../quickstart.rst:54
 msgid "But they are not yet in the database, so let's make sure they are::"
