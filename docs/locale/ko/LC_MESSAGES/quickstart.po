@@ -162,43 +162,46 @@ msgstr ""
 
 #: ../../quickstart.rst:159
 msgid "Road to Enlightenment"
-msgstr ""
+msgstr "추가 사항"
 
 #: ../../quickstart.rst:161
 msgid "The only things you need to know compared to plain SQLAlchemy are:"
-msgstr ""
+msgstr "일반 SQL알케미에 비해 알아야하는 것은 다음과 같은 사항이다.:"
 
 #: ../../quickstart.rst:163
 msgid ":class:`SQLAlchemy` gives you access to the following things:"
-msgstr ""
+msgstr ":class:`SQLAlchemy` 클래스는 다음에 대한 접근권한을 준다.:"
 
 #: ../../quickstart.rst:165
 msgid ""
 "all the functions and classes from :mod:`sqlalchemy` and "
 ":mod:`sqlalchemy.orm`"
 msgstr ""
+":mod:`sqlalchemy`\ 과 :mod:`sqlalchemy.orm`\ 의 모든 함수 및 클래스 "
 
 #: ../../quickstart.rst:167
 msgid "a preconfigured scoped session called ``session``"
-msgstr ""
+msgstr "``session``\ 이란 이름의 미리 설정된 세션"
 
 #: ../../quickstart.rst:168
 msgid "the :attr:`~SQLAlchemy.metadata`"
-msgstr ""
+msgstr "메타데이터 :attr:`~SQLAlchemy.metadata`"
 
 #: ../../quickstart.rst:169
 msgid "the :attr:`~SQLAlchemy.engine`"
-msgstr ""
+msgstr "엔진 :attr:`~SQLAlchemy.engine`"
 
 #: ../../quickstart.rst:170
 msgid ""
 "a :meth:`SQLAlchemy.create_all` and :meth:`SQLAlchemy.drop_all` methods "
 "to create and drop tables according to the models."
 msgstr ""
+"모델에 따른 테이블을 생성하거나 삭제하기 위한 "
+":meth:`SQLAlchemy.create_all`, :meth:`SQLAlchemy.drop_all` 메서드"
 
 #: ../../quickstart.rst:172
 msgid "a :class:`Model` baseclass that is a configured declarative base."
-msgstr ""
+msgstr "설정이 완료된 선언 베이스(declarative base)인 :class:`Model` 베이스 클래스"
 
 #: ../../quickstart.rst:174
 msgid ""
@@ -206,10 +209,14 @@ msgid ""
 "class but has a ``query`` attribute attached that can be used to query "
 "the model.  (:class:`Model` and :class:`BaseQuery`)"
 msgstr ""
+":class:`Model` 클래스는 일반적인 파이썬 클래스처럼 동작하지만 모델 쿼리에 "
+"쓸 수 있는 ``query`` 속성이 붙어있다. (:class:`Model`, :class:`BaseQuery` 참조)"
 
 #: ../../quickstart.rst:178
 msgid ""
 "You have to commit the session, but you don't have to remove it at the "
 "end of the request, Flask-SQLAlchemy does that for you."
 msgstr ""
+"세션은 커밋을 사용자가 해야 한다. 하지만 request 종료시에는 플래스크-SQL알케미가 "
+"대신 삭제해 준다."
 
