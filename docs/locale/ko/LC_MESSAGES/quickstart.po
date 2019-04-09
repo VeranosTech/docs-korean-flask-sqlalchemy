@@ -53,6 +53,9 @@ msgid ""
 "provides a class called ``Model`` that is a declarative base which can be"
 " used to declare models::"
 msgstr ""
+"이 객체는 :mod:`sqlalchemy` 및 :mod:`sqlalchemy.orm`\ 에 있는 "
+"모든 함수와 보조기능을 담고 있다. 또한 모델을 선언하는데 사용되는 "
+"선언 베이스(declarative base)인 ``Model`` 클래스도 제공한다.::)
 
 #: ../../quickstart.rst:40
 msgid ""
