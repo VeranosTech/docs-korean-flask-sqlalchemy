@@ -33,18 +33,17 @@ msgstr ""
 "만약 애플리케이션을 하나만 쓸 계획이면 이 장은 건너뛰어도 된다. "
 "보통 하듯이 애플리케이션을 :class:`SQLAlchemy` 생성자에 인수로 넣는 것으로 충분하다. "
 "하지만 두 개 이상의 애플리케이션을 사용하거나 함수 안에서 동적으로 애플리케이션을 "
-"생성하고자 할 때는 이 장을 읽어야 한다. "
+"생성하고자 할 때는 이 장을 읽어야 한다."
 
 #: ../../contexts.rst:14
-msgid ""                
-"if you define your application in a function, but the :class:`SQLAlchemy`"
+msgid ""
+"If you define your application in a function, but the :class:`SQLAlchemy`"
 " object globally, how does the latter learn about the former?  The answer"
 " is the :meth:`~SQLAlchemy.init_app` function::"
 msgstr ""
-"만약 애플리케이션은 함수 안에서 만들지만 :class:`SQLAlchemy` 객체는 전역으로 "
-"생성하고 싶다면 전역 변수가 어떻게 애플리케이션 객체에 접근하는가? "
-"답은 :meth:`~SQLAlchemy.init_app` 함수이다. "
-
+"만약 함수 안에서 애플리케이션을 정의하면서 :class:`SQLAlchemy` 객체는 전역으로 "
+"만들고 싶으면 전역 객체가 애플리케이션에 어떻게 접근하는가? "
+"답은 :meth:`~SQLAlchemy.init_app` 함수이다.::"
 
 #: ../../contexts.rst:29
 msgid ""
