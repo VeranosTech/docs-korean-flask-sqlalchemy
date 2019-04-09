@@ -146,6 +146,8 @@ msgid ""
 "loading strategy on the query level. If you wanted a single query to load"
 " all categories and their posts, you could do it like this::"
 msgstr ""
+"릴레이션을 lazy-loadin하는 것은 속도는 빠르지만 여러개의 객체에 대해 "
+"추가적인 쿼리를 반복하게 되면 병목현상이 일어난다. "
 
 
 #: ../../quickstart.rst:150
