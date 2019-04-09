@@ -52,6 +52,9 @@ msgid ""
 "application.  Why doesn't it do that? Because there might be more than "
 "one application created."
 msgstr ""
+"이 함수는 애플리케이션이 :class:`SQLAlchemy` 객체와 같이 일할 수 있도록 "
+"준비시킨다. 하지만 :class:`SQLAlchemy` 객체를 애플리케이션에 바인드시키지는 않는다 "
+"왜냐하면 다른 애플리케이션을 또 생성할 수도 있기 때문이다."
 
 #: ../../contexts.rst:34
 msgid ""
@@ -63,6 +66,11 @@ msgid ""
 "<http://flask.pocoo.org/docs/appcontext/#creating-an-application-"
 "context>`_)."
 msgstr ""
+"그러면 :class:`SQLAlchemy` 객체는 어떻게 애플리케이션에 대한 정보를 가지고 있을까? "
+"이를 위해 애플리케이션 컨텍스트를 만들어야 한다. "
+"만약 플라스크 뷰 함수나 명령줄 명령으로 작업하는 경우에는 컨텍스트가 자동으로 "
+"만들어진다. 하지만 대화형 셸 내에서 작업할 때는 사용자가 직접 컨텍스트를 "
+"만들어야 한다. (`애플리케이션 컨텍스트 생성 <http://flask.pocoo.org/docs/appcontext/#creating-an-application-context>`_ 참조)
 
 #: ../../contexts.rst:41
 msgid ""
