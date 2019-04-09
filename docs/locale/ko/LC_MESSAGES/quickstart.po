@@ -55,7 +55,7 @@ msgid ""
 msgstr ""
 "이 객체는 :mod:`sqlalchemy` 및 :mod:`sqlalchemy.orm`\ 에 있는 "
 "모든 함수와 보조기능을 담고 있다. 또한 모델을 선언하는데 사용되는 "
-"선언 베이스(declarative base)인 ``Model`` 클래스도 제공한다.::)
+"선언 베이스(declarative base)인 ``Model`` 클래스도 제공한다.::"
 
 #: ../../quickstart.rst:40
 msgid ""
@@ -63,10 +63,12 @@ msgid ""
 "interactive Python shell and run the :meth:`SQLAlchemy.create_all` method"
 " to create the tables and database::"
 msgstr ""
+"데이터베이스를 처음으로 생성하려면 파이썬 대화형 셸에서 ``db`` 객체를 임포트해서 "
+":meth:`SQLAlchemy.create_all` 메서드를 호출하면 테이블과 데이터베이스 생성된다.::"
 
 #: ../../quickstart.rst:48
 msgid "Boom, and there is your database.  Now to create some users::"
-msgstr ""
+msgstr "짠, 이제 데이터베이스가 생성됬다. 이제 사용자를 몇 명 생성해보자::"
 
 #: ../../quickstart.rst:54
 msgid "But they are not yet in the database, so let's make sure they are::"
